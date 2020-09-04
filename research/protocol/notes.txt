@@ -1,0 +1,51 @@
+<Buffer fe ef c0 a2 e0 01 00 e1> - err on
+<Buffer fe ef c0 a2 e0 01 01 e2> - err off
+
+<Buffer fe ef c0 a2 d3 01 00 d4> - Tare set/update
+<Buffer fe ef c0 a2 d3 01 01 d5> - Tare off
+
+<Buffer fe ef c0 a2 e4 01 00 e5> - Item on scale
+<Buffer fe ef c0 a2 e4 01 01 e6> - No item on scale
+
+<Buffer fe ef c0 a2 d0 05 01 06 4a 00 01 27> - sld - g - t - -161
+<Buffer fe ef c0 a2 d0 05 01 06 4a 02 01 29> - lqd - ml - t - -161
+<Buffer fe ef c0 a2 d0 05 01 06 22 04 01 03> - lqd - mlm - t - -157
+<Buffer fe ef c0 a2 d0 05 01 02 3a 03 01 16> - lqd - floz - t - -5.7
+<Buffer fe ef c0 a2 d0 05 01 02 26 05 01 04> - lqd - flozm - t - -5.5
+<Buffer fe ef c0 a2 d0 05 01 02 3a 06 01 19> - sld - oz - t - -5.7
+<Buffer fe ef c0 a2 d0 05 01 02 3a 01 01 14> - sld - lboz - t - -0:5.7
+
+<Buffer fe ef c0 a2 d0 05 00 11 94 00 01 7b> - sld - g - t - 450
+<Buffer fe ef c0 a2 d0 05 00 11 8a 00 01 71> - sld - g - t - 449
+<Buffer fe ef c0 a2 d0 05 00 06 36 01 01 13> - sld - lboz - 0:15.9
+<Buffer fe ef c0 a2 d0 05 00 11 8a 02 01 73> - lqd - ml - t - 449
+<Buffer fe ef c0 a2 d0 05 00 06 2c 03 01 0b> - lqd - floz - 15.8
+<Buffer fe ef c0 a2 d0 05 00 11 08 04 01 f3> - lqd - mlm - t - 449
+<Buffer fe ef c0 a2 d0 05 00 06 04 05 01 e5> - lqd - flozm - 15.4
+<Buffer fe ef c0 a2 d0 05 00 06 36 06 01 18> - sld - oz - 38.1
+
+<Buffer fe ef c0 a2 d0 05 01 14 6e 00 01 59> - sld - g - -523
+<Buffer fe ef c0 a2 d0 05 00 2a 26 00 01 26> - sld - g - 1079
+<Buffer fe ef c0 a2 d0 05 00 0e e2 01 01 c7> - sld - lboz - 2:6.1
+<Buffer fe ef c0 a2 d0 05 00 2a 26 02 01 28> - lqd - ml - 1079
+<Buffer fe ef c0 a2 d0 05 00 0e d8 03 01 bf> - lqd - floz - 38.0
+<Buffer fe ef c0 a2 d0 05 00 28 f0 04 01 f2> - lqd - mlm - 1048
+<Buffer fe ef c0 a2 d0 05 00 0e 6a 05 01 53> - lqd - flozm - 36.9
+<Buffer fe ef c0 a2 d0 05 00 0e e2 06 01 cc> - sld - oz - 38.1
+
+00000000 - 0 - s - ? - g
+00000010 - 2 - l - w - ml
+00000100 - 4 - l - m - ml
+
+00000011 - 3 - l - w - floz
+00000001 - 1 - s - ? - lboz
+00000110 - 6 - s - ? - oz
+00000101 - 5 - l - m - floz
+
+0  2   4    3     5      6   1
+g  ml  mlm  floz  flozm  oz  lboz
+
+After connect sequence 1
+<Buffer fe ef c0 a2 e4 01 01 e6>
+<Buffer fe ef c0 a2 d2 01 1d f0>
+<Buffer fe ef c0 a2 d0 05 00 00 00 00 01 d6>
