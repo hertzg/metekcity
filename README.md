@@ -48,5 +48,6 @@ Device will be constantly spamming packet with this data
 
 Nothing too interesting...
 
-![](research/hardware/esn00/photo_2020-09-04_01-17-35.jpg | width=100)
-![](research/hardware/esn00/photo_2020-09-04_01-17-34.jpg | width=100)
+![](https://github.com/hertzg/etekcity/raw/master/research/hardware/esn00/photo_2020-09-04_01-17-34.jpg | width=100)
+
+![](https://github.com/hertzg/etekcity/raw/master/research/hardware/esn00/photo_2020-09-04_01-17-34.jpg | width=100)
