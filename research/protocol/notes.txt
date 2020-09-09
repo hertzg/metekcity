@@ -49,3 +49,91 @@ After connect sequence 1
 <Buffer fe ef c0 a2 e4 01 01 e6>
 <Buffer fe ef c0 a2 d2 01 1d f0>
 <Buffer fe ef c0 a2 d0 05 00 00 00 00 01 d6>
+
+On Boot:
+NOTI <- [1910:2c12] Value: feefc0a2d10100d2
+NOTI <- [1910:2c12] Value: feefc0a2d30101d5
+NOTI <- [1910:2c12] Value: feefc0a2e40101e6
+NOTI <- [1910:2c12] Value: feefc0a2d2011cef
+NOTI <- [1910:2c12] Value: feefc0a2d2011cef
+NOTI <- [1910:2c12] Value: feefc0a2d2011cef
+NOTI <- [1910:2c12] Value: feefc0a2d2011cef
+
+...
+
+WRIT -> [1910:2c11] Value: feefc0a2c300c3
+WRIT -> [1910:2c11] Value: feefc0a2c4011ee3
+NOTI <- [1910:2c12] Value: feefc0a2d40100d5
+WRIT -> [1910:2c11] Value: feefc0a2c300c3
+NOTI <- [1910:2c12] Value: feefc0a2d40100d5
+WRIT -> [1910:2c11] Value: feefc0a2c300c3
+NOTI <- [1910:2c12] Value: feefc0a2d40100d5
+WRIT -> [1910:2c11] Value: feefc0a2c300c3
+NOTI <- [1910:2c12] Value: feefc0a2d40100d5
+
+Extra Measuremetns?
+NOTI <- [1910:2c12] feefc0a2c2240003cb00000000000000000000000000000000013d0000000000f70000000000f7000203000a00060004005210000000e0
+
+Unknowns
+NOTI <- [1910:2c12] fe181bff7500420403401217
+
+When entering auto off?
+WRIT -> [1910:2c11] feefc0a2c300c3 -- force wake up?
+NOTI <- [1910:2c12] feefc0a2d40100d5
+WRIT -> [1910:2c11] feefc0a2c300c3
+NOTI <- [1910:2c12] feefc0a2d40100d5
+WRIT -> [1910:2c11] feefc0a2c300c3
+NOTI <- [1910:2c12] feefc0a2d40100d5
+WRIT -> [1910:2c11] feefc0a2c300c3
+
+Set Unit:
+WRIT -> [1910:2c11] Value: feefc0a2c00101c2 - lboz
+WRIT -> [1910:2c11] Value: feefc0a2c00106c7 - oz
+WRIT -> [1910:2c11] Value: feefc0a2c00100c1 - g
+WRIT -> [1910:2c11] Value: feefc0a2c00102c3 - ml
+WRIT -> [1910:2c11] Value: feefc0a2c00104c5 - mlm
+WRIT -> [1910:2c11] Value: feefc0a2c00103c4 - floz
+WRIT -> [1910:2c11] Value: feefc0a2c00105c6 - flozm
+
+Set Tare Command
+WRIT -> [1910:2c11] Value: feefc0a2c10100c2
+
+Set auto off:
+WRIT -> [1910:2c11] Value: feefc0a2c401783d - 2 min
+NOTI <- [1910:2c12] Value: feefc0a2d502017850
+WRIT -> [1910:2c11] Value: feefc0a2c4013c01 - 1 min
+NOTI <- [1910:2c12] Value: feefc0a2d502013c14
+WRIT -> [1910:2c11] Value: feefc0a2c4012df2 - 45 sec
+NOTI <- [1910:2c12] Value: feefc0a2d502012d05
+WRIT -> [1910:2c11] Value: feefc0a2c4011ee3 - 30 sec
+NOTI <- [1910:2c12] Value: feefc0a2d502011ef6
+
+Wake up from sleep?
+NOTI <- [1910:2c12] Value: feefc0a2d30101d5
+
+
+Whats on scale?
+WRIT -> [1910:2c11] feefc0a2c22400001500017c00002a00003f0000540000940000a90000be0000d30000e80000fd000112fb
+WRIT -> [1910:2c11] feefc0a2c22400001500017c00002a00003f0000540000940000a90000be0000d30000e80000fd000112fb
+
+Name: Test 1
+Per Weight: 100 g
+Calories: 1.0 Kcal
+Total Fat: 2.0 g
+* Kilocalories from Fat: 18.0 Kcal
+* Saturated Fat: 3.0 g
+* Trans Fat: 4.0 g
+* Polyunsaturated Fat: 5.0 g
+Cholesterol: 7.0 mg
+Sodium: 8.0 mg
+Potassium: 9 mg
+Total Carbs: 10 g
+* Dietary Fiber: 11 g
+* Sugars: 12.0 g
+Protein: 13.0 g
+Vitamin A: 14.0 mg
+Vitamin C: 15.0 mg
+Vitamin D: 16.0 mcg
+Calcium: 17.0 mg
+Iron: 19.0 mg
+
