@@ -1,5 +1,7 @@
 # ETEKCITY Smart Nutrition Scale
 
+:warning: Very much work in progress :warning:
+
 This is a potential project that tries to reverse engineer the BLE protocol that
 ETEKCITY Smart Nutrition Scale (ESN00) uses.
 
