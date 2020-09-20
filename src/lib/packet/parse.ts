@@ -1,4 +1,4 @@
-import { Packet } from "./index";
+import { Packet } from "./types";
 
 export const parsePacket = (buffer: Buffer): Packet => {
   const header = buffer.slice(0, 4);
@@ -15,3 +15,5 @@ export const parsePacket = (buffer: Buffer): Packet => {
     checksum,
   };
 };
+
+export * from "./payloads";

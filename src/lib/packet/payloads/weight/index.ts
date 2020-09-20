@@ -1,16 +1,28 @@
 import { Unit } from "./unit";
-import { Sign } from "./sign";
+import {
+  bufferReadBoolean,
+  bufferReadSignedNumber,
+  bufferWriteBoolean,
+  bufferWriteSignedNumber,
+} from "../../utilities";
+import { PacketPayload } from "../index";
 
-export interface WeightPayload {
-  sign: Sign;
-  value: Buffer;
+export interface WeightPayload extends PacketPayload {
+  value: number;
   unit: Unit;
   settled: boolean;
 }
 
 export const parseWeightPayload = (buffer: Buffer): WeightPayload => ({
-  sign: buffer.readUInt8(0),
-  value: buffer.slice(1, 3),
-  unit: buffer.readUInt8(4),
-  settled: Boolean(buffer.readUInt8()),
+  value: bufferReadSignedNumber(buffer, 0),
+  unit: buffer.readUInt8(3),
+  settled: bufferReadBoolean(buffer, 4),
 });
+
+export const serializeWeightPayload = (payload: WeightPayload): Buffer => {
+  const buffer = new Buffer(5);
+  bufferWriteSignedNumber(buffer, payload.value, 0);
+  buffer.writeUInt8(payload.unit, 3);
+  bufferWriteBoolean(buffer, payload.settled, 4);
+  return buffer;
+};

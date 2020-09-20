@@ -7,20 +7,32 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "run": "ts-node src/run.ts",
     "format": "prettier -w src/**/*.{t,j}s",
     "test": "mocha"
   },
   "dependencies": {
-    "jest-extended": "^0.11.5",
-    "noble": "^1.9.1"
+    "@sblendid/sblendid": "^0.3.0",
+    "@sblendid/adapter-node": "^0.3.0",
+    "buffer-write": "^0.0.2",
+    "bytebuffer": "^5.0.1",
+    "debug": "^4.1.1",
+    "event-debug": "^2.1.0",
+    "lodash-ts": "^1.2.7",
+    "noble": "^1.9.1",
+    "noble-uwp": "^0.6.2"
   },
   "devDependencies": {
+    "@types/bytebuffer": "^5.0.41",
     "@types/chai": "^4.2.12",
+    "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.13",
+    "@types/noble": "^0.0.40",
     "@types/node": "^14.10.1",
     "jest": "^26.4.2",
     "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
+    "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   }
 }
