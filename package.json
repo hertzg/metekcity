@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "run": "ts-node src/run.ts",
     "format": "prettier -w src/**/*.{t,j}s",
-    "test": "mocha"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {},
   "devDependencies": {
