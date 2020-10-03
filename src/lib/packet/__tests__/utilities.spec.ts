@@ -1,4 +1,4 @@
-import { bufferReadBoolean, bx } from "./utilities";
+import { bufferReadBoolean, bx } from "../utilities";
 
 describe("Utilities", () => {
   describe("bx", () => {

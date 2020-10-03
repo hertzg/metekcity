@@ -1,19 +1,20 @@
-import { Packet } from "./types";
+import PayloadParser, { PayloadType } from './payloads';
+import { parsePacket } from './parsePacket';
+import { IPacket } from './index';
 
-export const parsePacket = (buffer: Buffer): Packet => {
-  const header = buffer.slice(0, 4);
-  const type = buffer.readUInt8(4);
-  const length = buffer.readUInt8(5);
-  const payload = buffer.slice(6, 6 + length);
-  const checksum = buffer.readUInt8(6 + length);
+const payloadParser = new PayloadParser();
 
+type ParseResult = PayloadType | Buffer;
+
+export const parse = (buffer: Buffer): IPacket<ParseResult> => {
+  const pkt = parsePacket(buffer);
+
+  const payload = payloadParser.parse(pkt.type, pkt.payload);
+  if (payload == null) {
+    return pkt;
+  }
   return {
-    header,
-    type,
-    length,
+    ...pkt,
     payload,
-    checksum,
   };
 };
-
-export * from "./payloads";
