@@ -1,95 +1,95 @@
-import Noble from "noble";
-import Assert from "assert";
-import Debug from "debug";
+import Noble from 'noble'
+import Assert from 'assert'
+import Debug from 'debug'
 
-const debug = Debug("run");
+const debug = Debug('run')
 
 const connect = (lookFor = [], onConnect) => {
   const startScanning = (cb = () => {}) => {
-    debug("startScanning");
+    debug('startScanning')
     Noble.startScanning([], true, (error) => {
-      debug("scanning...", error);
-      Assert.ifError(error);
-      cb(error);
-    });
-  };
+      debug('scanning...', error)
+      Assert.ifError(error)
+      cb(error)
+    })
+  }
 
   const stopScanning = (cb = () => {}) => {
-    debug("stopScanning");
-    if (Noble.state === "poweredOff") {
-      debug("was not scanning");
-      return cb();
+    debug('stopScanning')
+    if (Noble.state === 'poweredOff') {
+      debug('was not scanning')
+      return cb()
     }
     Noble.stopScanning(() => {
-      debug("scanning stopped");
-      cb();
-    });
-  };
+      debug('scanning stopped')
+      cb()
+    })
+  }
 
-  let lastPeripheral;
+  let lastPeripheral
   const onDiscover = (peripheral) => {
-    debug("onDiscover", peripheral.uuid);
+    debug('onDiscover', peripheral.uuid)
     const connect = (p) => {
-      debug("connect", p.uuid);
+      debug('connect', p.uuid)
       stopScanning(() => {
-        debug("connecting to", p.uuid);
+        debug('connecting to', p.uuid)
         p.connect((err) => {
-          debug("connected", err);
+          debug('connected', err)
           if (err) {
-            return startScanning();
+            return startScanning()
           }
-          onConnect(peripheral);
-          startScanning();
-        });
-      });
-    };
+          onConnect(peripheral)
+          startScanning()
+        })
+      })
+    }
 
     if (!peripheral.connectable) {
-      debug("unconnectable");
-      return startScanning();
+      debug('unconnectable')
+      return startScanning()
     }
 
     if (lastPeripheral) {
-      debug("disconnecting previous peripheral", lastPeripheral.uuid);
+      debug('disconnecting previous peripheral', lastPeripheral.uuid)
       lastPeripheral.disconnect((err) => {
-        debug("lastPeripheral disconnected", err);
-        Assert.ifError(err);
-        connect(peripheral);
-      });
+        debug('lastPeripheral disconnected', err)
+        Assert.ifError(err)
+        connect(peripheral)
+      })
     } else {
-      connect(peripheral);
+      connect(peripheral)
     }
-    lastPeripheral = peripheral;
-  };
+    lastPeripheral = peripheral
+  }
 
-  const ignored = [];
-  Noble.on("discover", (p) => {
-    debug("noble!discover %s", p.uuid);
-    if (ignored.includes(p.uuid)) return;
+  const ignored = []
+  Noble.on('discover', (p) => {
+    debug('noble!discover %s', p.uuid)
+    if (ignored.includes(p.uuid)) return
     if (lookFor.includes(p.uuid)) {
-      debug("found", p.uuid);
+      debug('found', p.uuid)
       stopScanning(() => {
-        onDiscover(p);
-      });
+        onDiscover(p)
+      })
     } else {
-      debug("ignore", p.uuid);
-      ignored.push(p.uuid);
+      debug('ignore', p.uuid)
+      ignored.push(p.uuid)
     }
-  });
+  })
 
-  Noble.on("stateChange", (state) => {
-    if (state === "poweredOn") {
-      startScanning();
+  Noble.on('stateChange', (state) => {
+    if (state === 'poweredOn') {
+      startScanning()
     } else {
-      stopScanning();
-      Noble.stopScanning();
+      stopScanning()
+      Noble.stopScanning()
     }
-  });
-};
+  })
+}
 
-connect(["a1b3a2c71840"], (peripheral) => {
-  console.log("CONNECTED!");
-});
+connect(['a1b3a2c71840'], (peripheral) => {
+  console.log('CONNECTED!')
+})
 
 //
 // noble.on("stateChange", function (state) {

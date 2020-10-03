@@ -15,7 +15,6 @@ local typeTable = {
     [0xe0] = "ERROR",
 
 
-
     [0xe4] = "ITEM",
 }
 
@@ -38,7 +37,9 @@ proto.fields = {
 
 function proto.dissector(buffer, pinfo, tree)
     length = buffer:len()
-    if length == 0 then return end
+    if length == 0 then
+        return
+    end
 
     pinfo.cols.protocol = proto.name
 
