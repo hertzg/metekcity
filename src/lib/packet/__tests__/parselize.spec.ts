@@ -48,9 +48,16 @@ const PK = (
 const SAMPLES: Array<[string, Buffer, IPacket<PayloadType | Buffer>]> = [
   ['UNKNOWN_ff/withData', ...PK(0xff, bx('00010203'), 0x09)],
   ['UNKNOWN_ff/noData', ...PK(0xff, bx(''), 0xff)],
+
+  ['ERROR_STATE/true', ...PK(PacketType.ERROR_STATE, [bx('01'), true], 0xe2)],
   ['ERROR_STATE/false', ...PK(PacketType.ERROR_STATE, [bx('00'), false], 0xe1)],
+
   ['TARE_STATE/true', ...PK(PacketType.TARE_STATE, [bx('01'), true], 0xd5)],
+  ['TARE_STATE/false', ...PK(PacketType.TARE_STATE, [bx('00'), false], 0xd4)],
+
+  ['ITEM_STATE/true', ...PK(PacketType.ITEM_STATE, [bx('01'), true], 0xe6)],
   ['ITEM_STATE/false', ...PK(PacketType.ITEM_STATE, [bx('00'), false], 0xe5)],
+
   [
     'MEASUREMENT/-523/grams/settled',
     ...PK(
