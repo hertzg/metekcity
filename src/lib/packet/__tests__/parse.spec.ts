@@ -3,7 +3,7 @@ import { parse } from '../parse';
 import { PacketType } from '../types';
 import { MeasurementUnit } from '../payloads';
 
-describe('Sample packet checks', () => {
+describe('parser checks', () => {
   it('should parse unknown packet payloads as buffer', () => {
     const pkt = parse(bx('feefc0a2_ff_04_00010203_ee'));
     expect(pkt).toBeTruthy();
