@@ -15,6 +15,18 @@ const SAMPLES: Array<[[number, string], string]> = [
 ];
 
 describe('serializePacket', () => {
+  it('should use passed values if present', () => {
+    expect(
+      serializePacket({
+        header: bx('deda'),
+        type: 0xde,
+        length: 0xad,
+        payload: Buffer.from([0xbe, 0xaf]),
+        checksum: 0xb0,
+      })
+    ).toStrictEqual(bx('dedadeadbeafb0'));
+  });
+
   it.each(SAMPLES)('%j -> %s', ([type, data], expected) => {
     expect(
       serializePacket({
