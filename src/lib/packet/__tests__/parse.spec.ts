@@ -1,5 +1,5 @@
 import { bx } from '../utilities';
-import { parse } from '../parse';
+import { parse } from '../parselize';
 import { PacketType } from '../types';
 import { MeasurementUnit } from '../payloads';
 

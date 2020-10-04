@@ -15,6 +15,7 @@ export interface IPacket<T extends PayloadType | Buffer = Buffer>
   checksum: number;
 }
 
-export * from './parse';
+export * from './parselize';
 export * from './parsePacket';
 export * from './payloads';
+export * from './serializePacket';
