@@ -1,4 +1,8 @@
 export const bx = (hex: string): Buffer => {
+  if (hex === '') {
+    return Buffer.alloc(0);
+  }
+
   const cleanHex = hex.replace(/[^0-9a-f]/g, '');
 
   if (cleanHex.length === 0 || cleanHex.length % 2 !== 0) {
@@ -19,11 +23,14 @@ export const bufferWriteNumber = (
   offset = 0
 ): number => buffer.writeUInt16BE(Math.abs(value), offset);
 
-const bufferReadSign = (buffer: Buffer, offset = 0): number =>
+const bufferReadSign = (buffer: Buffer, offset?: number): number =>
   bufferReadBoolean(buffer, offset) ? -1 : 1;
 
-const bufferWriteSign = (buffer: Buffer, value: number, offset = 0): number =>
-  buffer.writeUInt8(Math.sign(value) < 0 ? 1 : 0, offset);
+const bufferWriteSign = (
+  buffer: Buffer,
+  value: number,
+  offset?: number
+): number => buffer.writeUInt8(Math.sign(value) < 0 ? 1 : 0, offset);
 
 export const bufferReadSignedNumber = (buffer: Buffer, offset = 0): number =>
   bufferReadSign(buffer, offset) * bufferReadNumber(buffer, offset + 1);
