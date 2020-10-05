@@ -59,18 +59,33 @@ const SAMPLES: Array<[string, Buffer, IPacket<PayloadType | Buffer>]> = [
   ['ITEM_STATE/false', ...PK(PacketType.ITEM_STATE, [bx('00'), false], 0xe5)],
 
   [
-    'MEASUREMENT/-523/grams/settled',
+    'MEASUREMENT/g/settled/-523',
     ...PK(
       PacketType.MEASUREMENT,
       [
         bx('01146e0001'),
         {
-          settled: true,
-          unit: MeasurementUnit.GRAM,
           value: -5230,
+          unit: MeasurementUnit.GRAM,
+          settled: true,
         },
       ],
       0x59
+    ),
+  ],
+  [
+    'MEASUREMENT/mlw/notSettled/1079',
+    ...PK(
+      PacketType.MEASUREMENT,
+      [
+        bx('002a260200'),
+        {
+          value: 10790,
+          unit: MeasurementUnit.MILLILITER_WATER,
+          settled: false,
+        },
+      ],
+      0x27
     ),
   ],
 ];
