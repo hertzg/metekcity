@@ -23,7 +23,7 @@ export default class PayloadParselizer {
   getPayloadCodec = (type: PacketType): IPayloadParselizer | null => {
     switch (type) {
       case PacketType.SET_UNIT:
-        return this.numberParselizer;
+        return this.uint8Parselizer;
       case PacketType.ITEM_STATE:
       case PacketType.TARE_STATE:
       case PacketType.ERROR_STATE:
