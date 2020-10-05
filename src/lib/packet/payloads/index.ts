@@ -1,8 +1,10 @@
 import MeasurementParselizer, { IMeasurement } from './measurement';
 import { PacketType } from '../types';
 import { BooleanParselizer } from './genericBoolean';
+import { NumberParselizer } from './genericNumber';
+import { UInt8Parselizer } from './genericUInt8';
 
-export type PayloadType = Exclude<boolean | IMeasurement, null>;
+export type PayloadType = Exclude<number | boolean | IMeasurement, null>;
 
 export interface IPayloadParselizer {
   parse(buffer: Buffer): PayloadType | null;
@@ -13,11 +15,15 @@ export interface IPayloadParselizer {
 export default class PayloadParselizer {
   constructor(
     private readonly booleanParselizer = new BooleanParselizer(),
+    private readonly uint8Parselizer = new UInt8Parselizer(),
+    private readonly numberParselizer = new NumberParselizer(),
     private readonly measurementParselizer = new MeasurementParselizer()
   ) {}
 
   getPayloadCodec = (type: PacketType): IPayloadParselizer | null => {
     switch (type) {
+      case PacketType.SET_UNIT:
+        return this.numberParselizer;
       case PacketType.ITEM_STATE:
       case PacketType.TARE_STATE:
       case PacketType.ERROR_STATE:

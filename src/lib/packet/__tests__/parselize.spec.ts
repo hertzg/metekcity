@@ -49,6 +49,27 @@ const SAMPLES: Array<[string, Buffer, IPacket<PayloadType | Buffer>]> = [
   ['UNKNOWN_ff/withData', ...PK(0xff, bx('00010203'), 0x09)],
   ['UNKNOWN_ff/noData', ...PK(0xff, bx(''), 0xff)],
 
+  [
+    'SET_UNIT/g',
+    ...PK(PacketType.SET_UNIT, [bx('00'), MeasurementUnit.GRAM], 0xc1),
+  ],
+  [
+    'SET_UNIT/ml',
+    ...PK(
+      PacketType.SET_UNIT,
+      [bx('02'), MeasurementUnit.MILLILITER_WATER],
+      0xc3
+    ),
+  ],
+  [
+    'SET_UNIT/mlm',
+    ...PK(
+      PacketType.SET_UNIT,
+      [bx('04'), MeasurementUnit.MILLILITER_MILK],
+      0xc5
+    ),
+  ],
+
   ['ERROR_STATE/true', ...PK(PacketType.ERROR_STATE, [bx('01'), true], 0xe2)],
   ['ERROR_STATE/false', ...PK(PacketType.ERROR_STATE, [bx('00'), false], 0xe1)],
 
