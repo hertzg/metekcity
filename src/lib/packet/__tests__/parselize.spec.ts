@@ -70,6 +70,9 @@ const SAMPLES: Array<[string, Buffer, IPacket<PayloadType | Buffer>]> = [
     ),
   ],
 
+  ['SET_TARE/true', ...PK(PacketType.SET_TARE, [bx('00'), false], 0xc2)],
+  ['SET_TARE/false', ...PK(PacketType.SET_TARE, [bx('01'), true], 0xc3)],
+
   ['ERROR_STATE/true', ...PK(PacketType.ERROR_STATE, [bx('01'), true], 0xe2)],
   ['ERROR_STATE/false', ...PK(PacketType.ERROR_STATE, [bx('00'), false], 0xe1)],
 

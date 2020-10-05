@@ -25,6 +25,7 @@ export default class PayloadParselizer {
       case PacketType.SET_UNIT:
         return this.uint8Parselizer;
       case PacketType.ITEM_STATE:
+      case PacketType.SET_TARE:
       case PacketType.TARE_STATE:
       case PacketType.ERROR_STATE:
         return this.booleanParselizer;
