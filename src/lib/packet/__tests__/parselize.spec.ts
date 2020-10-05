@@ -70,6 +70,12 @@ const SAMPLES: Array<[string, Buffer, IPacket<PayloadType | Buffer>]> = [
     ),
   ],
 
+  ['SET_AUTO_OFF/2min', ...PK(PacketType.SET_AUTO_OFF, [bx('78'), 0x78], 0x3d)],
+  [
+    'AUTO_OFF_STATE/2min',
+    ...PK(PacketType.AUTO_OFF_STATE, [bx('0178'), 0x178], 0x50),
+  ],
+
   ['SET_TARE/true', ...PK(PacketType.SET_TARE, [bx('00'), false], 0xc2)],
   ['SET_TARE/false', ...PK(PacketType.SET_TARE, [bx('01'), true], 0xc3)],
 

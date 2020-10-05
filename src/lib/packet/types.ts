@@ -9,7 +9,7 @@ export const enum PacketType {
   _UNKNOWN_D2 = 0xd2,
   TARE_STATE = 0xd3,
   _PONG_D4 = 0x0d4,
-  AUTO_OFF = 0xd5,
+  AUTO_OFF_STATE = 0xd5,
   ERROR_STATE = 0xe0,
   _UNKNOWN_E1 = 0xe1,
   _UNKNOWN_E2 = 0xe2,
