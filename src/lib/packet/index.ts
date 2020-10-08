@@ -19,3 +19,4 @@ export * from './parselize';
 export * from './parsePacket';
 export * from './payloads';
 export * from './serializePacket';
+export { IParselizer } from './payloads/payloadParselizer';

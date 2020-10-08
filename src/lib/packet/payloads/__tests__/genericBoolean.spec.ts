@@ -1,10 +1,11 @@
 import { bx } from '../../utilities';
 import { BooleanParselizer } from '../genericBoolean';
 
-const parse = (payload) => new BooleanParselizer().parse(payload);
+const parse = (payload, invert?: boolean) =>
+  new BooleanParselizer(invert).parse(payload);
 
-const serialize = (payload): Buffer =>
-  new BooleanParselizer().serialize(payload);
+const serialize = (payload, invert?: boolean): Buffer =>
+  new BooleanParselizer(invert).serialize(payload);
 
 describe('boolean payloads', () => {
   it('should be able to parse boolean values', () => {
@@ -34,5 +35,13 @@ describe('boolean payloads', () => {
 
     assertCase('00', false);
     assertCase('01', true);
+  });
+
+  it('should be able to invert the logic', () => {
+    expect(serialize(true, true)).toStrictEqual(serialize(false));
+    expect(serialize(false, true)).toStrictEqual(serialize(true));
+    expect(parse(bx('01'), true)).toStrictEqual(parse(bx('00')));
+    expect(parse(bx('00'), true)).toStrictEqual(parse(bx('01')));
+    expect(parse(bx('ff'), true)).toStrictEqual(parse(bx('00')));
   });
 });
