@@ -5,7 +5,7 @@ export const enum PacketType {
   _PING_C3 = 0xc3,
   SET_AUTO_OFF = 0xc4,
   MEASUREMENT = 0xd0,
-  UNIT = 0xd1,
+  UNIT_STATE = 0xd1,
   _UNKNOWN_D2 = 0xd2,
   TARE_STATE = 0xd3,
   _PONG_D4 = 0x0d4,
