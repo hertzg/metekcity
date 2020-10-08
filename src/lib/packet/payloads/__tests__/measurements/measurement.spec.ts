@@ -1,4 +1,4 @@
-import MeasurementParselizer, { MeasurementUnit } from '../../measurement';
+import { MeasurementParselizer, MeasurementUnit } from '../../measurement';
 import { bx } from '../../../utilities';
 import JSON_SAMPLES from './samples.json';
 

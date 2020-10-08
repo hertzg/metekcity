@@ -22,7 +22,7 @@ export interface IMeasurement {
   settled: boolean;
 }
 
-export default class MeasurementParselizer implements IPayloadParselizer {
+export class MeasurementParselizer implements IPayloadParselizer {
   parse = (buffer: Buffer): IMeasurement => ({
     value: bufferReadSignedNumber(buffer, 0),
     unit: buffer.readUInt8(3),
