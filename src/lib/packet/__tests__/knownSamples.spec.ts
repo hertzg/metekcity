@@ -71,11 +71,15 @@ const SAMPLES: Array<[string, Buffer, IPacket<PayloadType | Buffer>]> = [
   ],
   [
     'UNIT_STATE/g',
-    ...PK(PacketType.UNIT, [bx('00'), MeasurementUnit.GRAM], 0xd2),
+    ...PK(PacketType.UNIT_STATE, [bx('00'), MeasurementUnit.GRAM], 0xd2),
   ],
   [
     'UNIT_STATE/ml',
-    ...PK(PacketType.UNIT, [bx('02'), MeasurementUnit.MILLILITER_WATER], 0xd4),
+    ...PK(
+      PacketType.UNIT_STATE,
+      [bx('02'), MeasurementUnit.MILLILITER_WATER],
+      0xd4
+    ),
   ],
 
   ['SET_AUTO_OFF/2min', ...PK(PacketType.SET_AUTO_OFF, [bx('78'), 0x78], 0x3d)],

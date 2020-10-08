@@ -33,6 +33,7 @@ export default class PayloadParselizer implements IParselizer {
         return this._uint16Parselizer;
       case PacketType.SET_UNIT:
       case PacketType.SET_AUTO_OFF:
+      case PacketType.UNIT_STATE:
         return this._uint8Parselizer;
       case PacketType.ITEM_STATE:
       case PacketType.TARE_STATE:
