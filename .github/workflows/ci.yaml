@@ -37,8 +37,8 @@ jobs:
 
       - name: Bootstrap
         run: |
-          yarn install --frozen-lockfile --check-files --prefer-offline
-          lerna bootstrap -- --frozen-lockfile --check-files --prefer-offline
+          yarn install --frozen-lockfile --prefer-offline
+          lerna bootstrap -- --frozen-lockfile --prefer-offline
 
       - name: Lerna Test
         run: lerna run test -- --reporters=../../jest-github-reporter.js
