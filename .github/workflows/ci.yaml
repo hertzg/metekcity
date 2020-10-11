@@ -35,11 +35,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Bootstrap
+      - name: yarn global bin
         run: |
           yarn global add lock-treatment-tool
+          echo "::add-path::$(yarn global bin)"
+
+      # TODO: Treat lock-files in all packages
+      - name: Lockfile Treatment
+        run: |
           locktt --registry=https://registry.npmjs.org -p
           locktt --registry=https://registry.npmjs.org -p --folder=packages/packet
+
+      - name: Bootstrap
+        run: |
           yarn install --frozen-lockfile --check-files --prefer-offline
           lerna bootstrap -- --frozen-lockfile --check-files --prefer-offline
 
