@@ -40,13 +40,6 @@ jobs:
           echo "$(yarn global bin)" >> $GITHUB_PATH
           echo "$(yarn bin)" >> $GITHUB_PATH
 
-      # TODO: Treat lock-files in all packages
-      - name: Lockfile Treatment
-        run: |
-          yarn global add lock-treatment-tool
-          locktt --registry=https://registry.npmjs.org -p
-          locktt --registry=https://registry.npmjs.org -p --folder=packages/packet
-
       - name: Bootstrap
         run: |
           yarn install --frozen-lockfile --check-files --prefer-offline

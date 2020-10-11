@@ -5,7 +5,8 @@
     "lock-treatment-tool": "^0.4.1"
   },
   "scripts": {
-    "locktt": "locktt -p"
+    "postinstall": "yarn fix-lockfiles",
+    "fix-lockfiles": "locktt --registry=https://registry.npmjs.org -p"
   },
   "workspaces": [
     "packages/*"
