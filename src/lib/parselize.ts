@@ -32,15 +32,20 @@ export const serialize = (
   pkt: ISerializablePacket<Buffer | PayloadType>,
   parselizer: IParselizerSerializer = globalParselizer
 ): Buffer | null => {
-  const payload =
-    pkt.payload instanceof Buffer
-      ? pkt.payload
-      : parselizer.serialize(pkt.type, pkt.payload);
+  if (pkt.payload instanceof Buffer) {
+    return serializePacket(pkt as ISerializablePacket);
+  }
 
-  return payload != null
-    ? serializePacket({
-        ...pkt,
-        payload,
-      })
-    : null;
+  const payload = parselizer.serialize(pkt.type, pkt.payload);
+
+  if (payload == null) {
+    throw new TypeError(
+      `Tried to serialize packet of unknown type ${pkt.type}`
+    );
+  }
+
+  return serializePacket({
+    ...pkt,
+    payload,
+  });
 };

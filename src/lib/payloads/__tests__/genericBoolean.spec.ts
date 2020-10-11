@@ -11,7 +11,7 @@ describe('boolean payloads', () => {
   it('should be able to parse boolean values', () => {
     expect(parse(bx('01'))).toStrictEqual(true);
     expect(parse(bx('0100'))).toStrictEqual(true);
-    expect(parse(bx('0100'))).toStrictEqual(true);
+    expect(parse(bx('1000'))).toStrictEqual(true);
     expect(parse(bx('0001'))).toStrictEqual(false);
     expect(parse(bx('00210001'))).toStrictEqual(false);
   });

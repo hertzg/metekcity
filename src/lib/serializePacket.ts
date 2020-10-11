@@ -2,21 +2,23 @@ import { ISerializablePacket } from './index';
 import { HEADER } from './constants';
 import { calculateChecksum } from './checksum';
 
+const { from, concat } = Buffer;
+
 export const serializePacket = <T extends Buffer = Buffer>(
   pkt: ISerializablePacket<T>
 ): Buffer => {
-  const body = Buffer.concat([
-    Buffer.from([pkt.type & 0xff]),
-    Buffer.from(
+  const body = concat([
+    from([pkt.type & 0xff]),
+    from(
       pkt.length != null ? [pkt.length & 0xff] : [pkt.payload.length & 0xff]
     ),
-    Buffer.from(pkt.payload),
+    from(pkt.payload),
   ]);
 
-  return Buffer.concat([
-    Buffer.from(pkt.header != null ? pkt.header : HEADER),
+  return concat([
+    from(pkt.header != null ? pkt.header : HEADER),
     body,
-    Buffer.from([
+    from([
       (pkt.checksum != null ? pkt.checksum : calculateChecksum(body)) & 0xff,
     ]),
   ]);

@@ -14,6 +14,11 @@ export const bx = (hex: string): Buffer => {
   return Buffer.from(cleanHex, 'hex');
 };
 
+export const uint8 = (value: number) => value & 0xff;
+
+export const uint8Sum = (a: number, b: number): number =>
+  uint8(uint8(a) + uint8(b));
+
 export const bufferReadNumber = (buffer: Buffer, offset = 0): number =>
   Number(buffer.readUInt16BE(offset));
 

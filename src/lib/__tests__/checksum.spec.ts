@@ -2,6 +2,7 @@ import { bx } from '../utilities';
 import { calculateChecksum } from '../checksum';
 
 const SAMPLES: Array<[string, number]> = [
+  ['', 0x00],
   ['00', 0x00],
   ['ff00', 0xff],
   ['00ff', 0xff],
