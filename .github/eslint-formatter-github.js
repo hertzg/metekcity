@@ -9,10 +9,14 @@ const mapSeverity = (sev) => {
 };
 
 const formatSuggestions = (suggestions) => {
-  return (suggestions && suggestions.length ? suggestions : []).map(
-    ({ messageId, desc }) => {
-      return `\nSuggestion [${messageId}]: ${desc}`;
-    }
+  if (!suggestions || !suggestions.length) {
+    return [];
+  }
+
+  return ['Suggestions:\n'].concat(
+    suggestions.map(({ messageId, desc }) => {
+      return `* ${messageId}: ${desc}`;
+    })
   );
 };
 
@@ -24,9 +28,10 @@ module.exports = (results) =>
         .map(({ ruleId, severity, message, line, column, suggestions }) => {
           const sev = mapSeverity(severity);
           const msg = [
-            `Lint [${ruleId}] ${message}`,
+            `${sev.toUpperCase()}: ${message} [\`${ruleId}\`]`,
             ...formatSuggestions(suggestions),
           ].join('\n');
+
           const cleanMessage = msg.replace(/\n/g, '%0A');
           return `::${sev} file=${filePath},line=${line},col=${column}::${cleanMessage}`;
         })
