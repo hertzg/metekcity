@@ -1,8 +1,11 @@
 {
-  "name": "metekcity",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "lock-treatment-tool": "^0.4.1"
+  },
+  "scripts": {
+    "locktt": "locktt -p"
   },
   "workspaces": [
     "packages/*"
