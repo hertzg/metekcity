@@ -43,7 +43,11 @@ describe('Utilities', () => {
     });
 
     it('should always write boolean as 00 or 01', () => {
-      const assertWrite = (value: boolean, expected: Buffer, offset?) => {
+      const assertWrite = (
+        value: boolean,
+        expected: Buffer,
+        offset?: number
+      ) => {
         const buffer = Buffer.alloc(1 + (offset || 0));
         bufferWriteBoolean(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
@@ -67,7 +71,11 @@ describe('Utilities', () => {
     });
 
     it('should always write number as 16 bit big-endian unsigned integer', () => {
-      const assertWrite = (value: number, expected: Buffer, offset?) => {
+      const assertWrite = (
+        value: number,
+        expected: Buffer,
+        offset?: number
+      ) => {
         const buffer = Buffer.alloc(2 + (offset || 0));
         bufferWriteNumber(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
@@ -118,7 +126,11 @@ describe('Utilities', () => {
     });
 
     it('should always write number as boolean (positive or negative) + 16 bit big-endian unsigned integer', () => {
-      const assertWrite = (value: number, expected: Buffer, offset?) => {
+      const assertWrite = (
+        value: number,
+        expected: Buffer,
+        offset?: number
+      ) => {
         const buffer = Buffer.alloc(3 + (offset || 0));
         bufferWriteSignedNumber(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);

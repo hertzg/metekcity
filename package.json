@@ -5,11 +5,13 @@
   "repository": "git@github.com:hertzg/etekcity.git",
   "author": "George Hertz <georgedot@gmail.com>",
   "license": "MIT",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "tsc",
     "format": "prettier -w src/**/*.{t,j}s",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "test": "jest"
   },
   "dependencies": {},
   "devDependencies": {
@@ -19,6 +21,6 @@
     "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   }
 }

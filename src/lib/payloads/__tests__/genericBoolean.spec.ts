@@ -1,10 +1,10 @@
 import { bx } from '../../utilities';
 import { BooleanParselizer } from '../genericBoolean';
 
-const parse = (payload, invert?: boolean) =>
+const parse = (payload: Buffer, invert?: boolean): boolean =>
   new BooleanParselizer(invert).parse(payload);
 
-const serialize = (payload, invert?: boolean): Buffer =>
+const serialize = (payload: boolean, invert?: boolean): Buffer =>
   new BooleanParselizer(invert).serialize(payload);
 
 describe('boolean payloads', () => {
@@ -22,7 +22,7 @@ describe('boolean payloads', () => {
   });
 
   it('should consistently parse <-> serialize', () => {
-    const assertCase = (hex, value) => {
+    const assertCase = (hex: string, value: boolean) => {
       const buffer = bx(hex);
       const payload = value;
 

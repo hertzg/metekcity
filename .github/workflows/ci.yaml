@@ -36,8 +36,8 @@ jobs:
       - name: Install dependencies (full)
         run: yarn
 
-      - name: Coverage
-        run: yarn coverage
+      - name: Test
+        run: yarn test
 
       - name: Coverage Upload
         continue-on-error: true

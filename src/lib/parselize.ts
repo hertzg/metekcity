@@ -31,14 +31,16 @@ export const parse = (
 export const serialize = (
   pkt: ISerializablePacket<Buffer | PayloadType>,
   parselizer: IParselizerSerializer = globalParselizer
-): Buffer => {
+): Buffer | null => {
   const payload =
     pkt.payload instanceof Buffer
       ? pkt.payload
       : parselizer.serialize(pkt.type, pkt.payload);
 
-  return serializePacket({
-    ...pkt,
-    payload,
-  });
+  return payload != null
+    ? serializePacket({
+        ...pkt,
+        payload,
+      })
+    : null;
 };
