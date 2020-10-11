@@ -33,11 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install dependencies (full)
-        run: yarn
+      - name: Bootstrap
+        run: lerna bootstrap
 
-      - name: Test
-        run: yarn test
+      - name: Lerna Test
+        run: lerna run test -- --reporters=../../jest-github-reporter.js
 
       - name: Coverage Upload
         continue-on-error: true
