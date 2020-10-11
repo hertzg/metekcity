@@ -35,14 +35,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: yarn global bin
+      - name: yarn bin paths
         run: |
-          yarn global add lock-treatment-tool
-          echo "::add-path::$(yarn global bin)"
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+          echo "$(yarn bin)" >> $GITHUB_PATH
 
       # TODO: Treat lock-files in all packages
       - name: Lockfile Treatment
         run: |
+          yarn global add lock-treatment-tool
           locktt --registry=https://registry.npmjs.org -p
           locktt --registry=https://registry.npmjs.org -p --folder=packages/packet
 
