@@ -1,9 +1,4 @@
 class MyCustomReporter {
-  constructor(globalConfig, options) {
-    this._globalConfig = globalConfig;
-    this._options = options;
-  }
-
   onRunComplete(contexts, results) {
     results.testResults.forEach((testResultItem) => {
       const testFilePath = testResultItem.testFilePath;

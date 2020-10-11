@@ -53,7 +53,7 @@ jobs:
           lerna bootstrap -- --frozen-lockfile --check-files --prefer-offline
 
       - name: Lerna Test
-        run: lerna run test -- --reporters=../../jest-github-reporter.js
+        run: lerna run test -- --reporters=../../.github/jest-github-reporter.js
 
       - name: Coverage Upload
         continue-on-error: true
