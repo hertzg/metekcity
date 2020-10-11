@@ -9,7 +9,8 @@ import JSON_SAMPLES from './samples.json';
 const SAMPLES: Array<[
   name: string,
   hex: string,
-  expected: any
+  expected: never
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ]> = JSON_SAMPLES as any;
 
 const parse = (payload: Buffer): IMeasurement =>

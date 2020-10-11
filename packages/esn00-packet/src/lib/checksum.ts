@@ -2,5 +2,5 @@ import { uint8Sum } from './utilities';
 
 export const calculateChecksum = (
   buffer: Buffer,
-  prevSum: number = 0
+  prevSum = 0
 ): number => buffer.reduce(uint8Sum, prevSum);

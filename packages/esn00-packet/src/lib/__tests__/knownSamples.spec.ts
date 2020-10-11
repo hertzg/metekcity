@@ -2,18 +2,20 @@ import { parse, serialize } from '../parselize';
 import SAMPLES from './knownSamples.json';
 import { bx } from '../utilities';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const groups = SAMPLES as any;
 
 describe('Known sample checks', () => {
   describe.each(Object.keys(groups))('Group: %s', (groupKey: string) => {
     describe.each(groups[groupKey])(
       'Sample %s:',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      (_, hex: string, pkt: any): void => {
+      (_, hex: string, pkt): void => {
         const buffer = bx(hex);
 
         it('should be parsed correctly', () => {
-          const parsed = parse(bx(hex)) as any;
+          const parsed = parse(bx(hex));
 
           expect(parsed).toBeTruthy();
           expect(typeof parsed).toBe('object');

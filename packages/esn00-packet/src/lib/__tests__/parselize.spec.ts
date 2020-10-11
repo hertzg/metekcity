@@ -93,11 +93,13 @@ describe('Parselizer', () => {
 
       const packet = {
         type: 0xff,
-        payload: 'some random payload' as any,
+        payload: 'some random payload',
       };
 
       mockedParselizerSerialize.mockReturnValue(null);
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       expect(() => boundSerialize(packet)).toThrow(
         /^Tried to serialize packet of unknown type/
       );
