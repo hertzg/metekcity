@@ -37,8 +37,11 @@ jobs:
 
       - name: Bootstrap
         run: |
-          yarn install --frozen-lockfile --prefer-offline
-          lerna bootstrap -- --frozen-lockfile --prefer-offline
+          yarn global add lock-treatment-tool
+          locktt --registry=https://registry.npmjs.org -p
+          locktt --registry=https://registry.npmjs.org -p --folder=packages/packet
+          yarn install --frozen-lockfile --check-files --prefer-offline
+          lerna bootstrap -- --frozen-lockfile --check-files --prefer-offline
 
       - name: Lerna Test
         run: lerna run test -- --reporters=../../jest-github-reporter.js
