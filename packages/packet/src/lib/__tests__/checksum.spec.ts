@@ -6,7 +6,7 @@ const SAMPLES: Array<[string, number]> = [
   ['00', 0x00],
   ['ff00', 0xff],
   ['00ff', 0xff],
-  ['ff01', 0x00ffffffff],
+  ['ff01', 0x00ff],
   ['ffff', 0xfe],
   ['c00104', 0xc5],
   ['d40100', 0xd5],
