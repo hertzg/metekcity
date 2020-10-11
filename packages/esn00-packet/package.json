@@ -1,0 +1,33 @@
+{
+  "name": "@metekcity/esn00-packet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hertzg/etekcity.git",
+  "author": "George Hertz <georgedot@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": ".tsc",
+    "format": "prettier -w ./src/**/*.{t,j}s",
+    "lint": "eslint ./src --ext .js,.ts",
+    "test": "jest"
+  },
+  "engines": {
+    "node": "> 4"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.1",
+    "eslint": "^7.11.0",
+    "ts-jest": "^26.3.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  }
+}

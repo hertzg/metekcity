@@ -31,11 +31,18 @@ export const parse = (
 export const serialize = (
   pkt: ISerializablePacket<Buffer | PayloadType>,
   parselizer: IParselizerSerializer = globalParselizer
-): Buffer => {
-  const payload =
-    pkt.payload instanceof Buffer
-      ? pkt.payload
-      : parselizer.serialize(pkt.type, pkt.payload);
+): Buffer | null => {
+  if (pkt.payload instanceof Buffer) {
+    return serializePacket(pkt as ISerializablePacket);
+  }
+
+  const payload = parselizer.serialize(pkt.type, pkt.payload);
+
+  if (payload == null) {
+    throw new TypeError(
+      `Tried to serialize packet of unknown type ${pkt.type}`
+    );
+  }
 
   return serializePacket({
     ...pkt,

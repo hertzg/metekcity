@@ -1,0 +1,19 @@
+{
+  "packages": ["packages/*"],
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "message": "chore(release): publish [skip ci]",
+      "registry": "https://registry.npmjs.org"
+    },
+    "bootstrap": {
+      "npmClientArgs": [
+        "--frozen-lockfile",
+        "--check-files",
+        "--prefer-offline"
+      ]
+    }
+  }
+}

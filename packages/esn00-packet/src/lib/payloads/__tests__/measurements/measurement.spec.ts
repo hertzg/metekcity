@@ -1,16 +1,22 @@
-import { MeasurementParselizer, MeasurementUnit } from '../../measurement';
+import {
+  IMeasurement,
+  MeasurementParselizer,
+  MeasurementUnit,
+} from '../../measurement';
 import { bx } from '../../../utilities';
 import JSON_SAMPLES from './samples.json';
 
 const SAMPLES: Array<[
   name: string,
   hex: string,
-  expected: any
+  expected: never
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ]> = JSON_SAMPLES as any;
 
-const parse = (payload) => new MeasurementParselizer().parse(payload);
+const parse = (payload: Buffer): IMeasurement =>
+  new MeasurementParselizer().parse(payload);
 
-const serialize = (payload): Buffer =>
+const serialize = (payload: IMeasurement): Buffer =>
   new MeasurementParselizer().serialize(payload);
 
 describe('Weight', () => {

@@ -6,9 +6,39 @@ import {
   bufferWriteNumber,
   bufferWriteSignedNumber,
   bx,
+  uint8,
+  uint8Sum,
 } from '../utilities';
 
 describe('Utilities', () => {
+  describe('uint8', () => {
+    it('should limit the value to 8 bits', () => {
+      expect(uint8(-0)).toStrictEqual(0);
+      expect(uint8(-0xff)).toStrictEqual(1);
+      expect(uint8(0)).toStrictEqual(0);
+      expect(uint8(0xff)).toStrictEqual(0xff);
+      expect(uint8(0x1000)).toStrictEqual(0);
+      expect(uint8(0xff00)).toStrictEqual(0);
+      expect(uint8(0xfff0)).toStrictEqual(0xf0);
+      expect(uint8(0xff0f)).toStrictEqual(0x0f);
+    });
+  });
+
+  describe('uint8Sum', () => {
+    it('should perform 8 bit arithmetic summation', () => {
+      expect(uint8Sum(0, 0)).toStrictEqual(0);
+      expect(uint8Sum(0xff, 0)).toStrictEqual(0xff);
+      expect(uint8Sum(0x0, 0xff)).toStrictEqual(0xff);
+      expect(uint8Sum(0xff, 0x01)).toStrictEqual(0);
+      expect(uint8Sum(0xf0, 0x0f)).toStrictEqual(0xff);
+      expect(uint8Sum(1, 0xff)).toStrictEqual(0);
+      expect(uint8Sum(0xff, 1)).toStrictEqual(0);
+      expect(uint8Sum(0xff, 0xff)).toStrictEqual(0xfe);
+      expect(uint8Sum(0xffffff, 0xffffff)).toStrictEqual(0xfe);
+      expect(uint8Sum(0x0102ff, 0x0102ff)).toStrictEqual(0xfe);
+    });
+  });
+
   describe('bx', () => {
     it('should produce 0 length buffer on empty string', () => {
       expect(bx('')).toStrictEqual(Buffer.alloc(0));
@@ -43,7 +73,11 @@ describe('Utilities', () => {
     });
 
     it('should always write boolean as 00 or 01', () => {
-      const assertWrite = (value: boolean, expected: Buffer, offset?) => {
+      const assertWrite = (
+        value: boolean,
+        expected: Buffer,
+        offset?: number
+      ) => {
         const buffer = Buffer.alloc(1 + (offset || 0));
         bufferWriteBoolean(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
@@ -67,7 +101,11 @@ describe('Utilities', () => {
     });
 
     it('should always write number as 16 bit big-endian unsigned integer', () => {
-      const assertWrite = (value: number, expected: Buffer, offset?) => {
+      const assertWrite = (
+        value: number,
+        expected: Buffer,
+        offset?: number
+      ) => {
         const buffer = Buffer.alloc(2 + (offset || 0));
         bufferWriteNumber(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
@@ -118,7 +156,11 @@ describe('Utilities', () => {
     });
 
     it('should always write number as boolean (positive or negative) + 16 bit big-endian unsigned integer', () => {
-      const assertWrite = (value: number, expected: Buffer, offset?) => {
+      const assertWrite = (
+        value: number,
+        expected: Buffer,
+        offset?: number
+      ) => {
         const buffer = Buffer.alloc(3 + (offset || 0));
         bufferWriteSignedNumber(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
