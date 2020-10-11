@@ -13,7 +13,7 @@ const formatSuggestions = (suggestions) => {
     return [];
   }
 
-  return ['Suggestions:\n'].concat(
+  return ['\nSuggestions:'].concat(
     suggestions.map(({ messageId, desc }) => {
       return `* ${messageId}: ${desc}`;
     })
