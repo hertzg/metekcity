@@ -1,4 +1,4 @@
-import { bx } from '../utilities';
+import { bx } from '@hertzg/bx';
 import { serializePacket } from '../serializePacket';
 
 const SAMPLES: Array<[[number, string], string]> = [

@@ -1,4 +1,4 @@
-import { bx } from '../utilities';
+import { bx } from '@hertzg/bx';
 import { parsePacket } from '../parsePacket';
 import { serializePacket } from '../serializePacket';
 import { parse, serialize } from '../parselize';

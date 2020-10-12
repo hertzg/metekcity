@@ -1,4 +1,4 @@
-import { bx } from '../utilities';
+import { bx } from '@hertzg/bx';
 import { calculateChecksum } from '../checksum';
 
 const SAMPLES: Array<[string, number]> = [
