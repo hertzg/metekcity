@@ -1,18 +1,26 @@
 {
   "name": "@metekcity/esn00-packet",
   "version": "1.1.0",
-  "main": "index.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:hertzg/etekcity.git",
   "author": "George Hertz <georgedot@gmail.com>",
   "license": "MIT",
   "files": [
-    "dist/"
+    "dist/**/*",
+    "src/**/*",
+    "!**/__tests__/*"
   ],
   "scripts": {
-    "build": ".tsc",
+    "prepare": "yarn build",
+    "build": "tsc",
     "format": "prettier -w ./src/**/*.{t,j}s",
     "lint": "eslint ./src --ext .js,.ts",
-    "test": "jest"
+    "test": "jest src/"
   },
   "engines": {
     "node": "> 4"
