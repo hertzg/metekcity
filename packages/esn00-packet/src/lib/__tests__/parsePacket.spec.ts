@@ -1,4 +1,4 @@
-import { bx } from '../utilities';
+import { bx } from '@hertzg/bx';
 import { parsePacket } from '../parsePacket';
 
 describe('Sample packet checks', () => {

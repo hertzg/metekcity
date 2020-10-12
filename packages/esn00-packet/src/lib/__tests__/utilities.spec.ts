@@ -5,10 +5,10 @@ import {
   bufferWriteBoolean,
   bufferWriteNumber,
   bufferWriteSignedNumber,
-  bx,
   uint8,
   uint8Sum,
 } from '../utilities';
+import { bx } from '@hertzg/bx';
 
 describe('Utilities', () => {
   describe('uint8', () => {
@@ -36,28 +36,6 @@ describe('Utilities', () => {
       expect(uint8Sum(0xff, 0xff)).toStrictEqual(0xfe);
       expect(uint8Sum(0xffffff, 0xffffff)).toStrictEqual(0xfe);
       expect(uint8Sum(0x0102ff, 0x0102ff)).toStrictEqual(0xfe);
-    });
-  });
-
-  describe('bx', () => {
-    it('should produce 0 length buffer on empty string', () => {
-      expect(bx('')).toStrictEqual(Buffer.alloc(0));
-    });
-    it('should convert hex strings to buffer', () => {
-      expect(bx('feef')).toEqual(Buffer.from([0xfe, 0xef]));
-      expect(bx('feeffaaf')).toEqual(Buffer.from([0xfe, 0xef, 0xfa, 0xaf]));
-    });
-    it('should convert hex strings with separators to buffer', () => {
-      expect(bx('fe_ef af be b0 xba-ab')).toEqual(
-        Buffer.from([0xfe, 0xef, 0xaf, 0xbe, 0xb0, 0xba, 0xab])
-      );
-    });
-    it('should throw on invalid strings', () => {
-      expect(() => bx(' ')).toThrowError(TypeError);
-      expect(() => bx('zz')).toThrowError(TypeError);
-      expect(() => bx('0')).toThrowError(TypeError);
-      expect(() => bx('1')).toThrowError(TypeError);
-      expect(() => bx('deadbea')).toThrowError(TypeError);
     });
   });
 

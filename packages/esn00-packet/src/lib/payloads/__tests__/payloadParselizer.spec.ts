@@ -1,5 +1,5 @@
 import PayloadParselizer from '../payloadParselizer';
-import { bx } from '../../utilities';
+import { bx } from '@hertzg/bx';
 
 jest.mock('../genericBoolean');
 jest.mock('../genericUInt8');

@@ -39,5 +39,8 @@
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   },
-  "gitHead": "068789977eba80190531873dc290ea324a477f27"
+  "gitHead": "068789977eba80190531873dc290ea324a477f27",
+  "dependencies": {
+    "@hertzg/bx": "^1.0.0"
+  }
 }

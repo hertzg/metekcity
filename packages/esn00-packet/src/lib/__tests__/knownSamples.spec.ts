@@ -1,6 +1,6 @@
 import { parse, serialize } from '../parselize';
 import SAMPLES from './knownSamples.json';
-import { bx } from '../utilities';
+import { bx } from '@hertzg/bx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const groups = SAMPLES as any;

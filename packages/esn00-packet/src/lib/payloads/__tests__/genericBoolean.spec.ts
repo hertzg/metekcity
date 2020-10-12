@@ -1,4 +1,4 @@
-import { bx } from '../../utilities';
+import { bx } from '@hertzg/bx';
 import { BooleanParselizer } from '../genericBoolean';
 
 const parse = (payload: Buffer, invert?: boolean): boolean =>
