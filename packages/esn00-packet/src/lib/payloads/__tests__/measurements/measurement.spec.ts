@@ -6,12 +6,10 @@ import {
 import { bx } from '@hertzg/bx';
 import JSON_SAMPLES from './samples.json';
 
-const SAMPLES: Array<[
-  name: string,
-  hex: string,
-  expected: never
+const SAMPLES: Array<
+  [name: string, hex: string, expected: never]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-]> = JSON_SAMPLES as any;
+> = JSON_SAMPLES as any;
 
 const parse = (payload: Buffer): IMeasurement =>
   new MeasurementParselizer().parse(payload);

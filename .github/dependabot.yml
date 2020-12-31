@@ -1,4 +1,3 @@
-
 version: 2
 updates:
   - package-ecosystem: npm
@@ -12,7 +11,7 @@ updates:
       prefix-development: chore
       include: scope
     labels:
-      - "dependencies"
+      - 'dependencies'
     open-pull-requests-limit: 10
     reviewers:
       - hertzg

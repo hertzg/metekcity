@@ -8,11 +8,9 @@
 This is a potential project that tries to reverse engineer the BLE protocol that
 ETEKCITY Smart Nutrition Scale (ESN00) uses.
 
-
 [ETEKCITY Smart Nutrition Scale (ESN00)](https://www.etekcity.com/product/100334) ([DE](https://www.amazon.de/gp/product/B07RJV9QPF) | [US](https://www.amazon.com/Etekcity-ESN00-Nutrition-Counting-Bluetooth/dp/B07FCZSC41))
 
 ![](https://image.etekcity.com/thumb/201810/28/7f248c75a139b66b9d0e6b081c25a0a1.jpg)
-
 
 ## BLE Protocol
 

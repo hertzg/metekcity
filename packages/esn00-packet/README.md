@@ -8,7 +8,7 @@ Parses & serializes packets to and from the format that ESN00 sends and understa
 - [x] `SET_TARE` (`0xc1`) - #2
 - [x] `SET_AUTO_OFF` (`0xc4`) - 805a076, #2
 - [x] `MEASUREMENT` (`0xd0`) - bfcf5df
-- [x] `UNIT_STATE` (`0xd1`) - #5 
+- [x] `UNIT_STATE` (`0xd1`) - #5
 - [x] `TARE_STATE` (`0xd3`) - bfcf5df, #3
 - [x] `AUTO_OFF_STATE` (`0xd5`) - #2
 - [x] `ERROR_STATE` (`0xe0`) - bfcf5df, #3
@@ -17,12 +17,12 @@ Parses & serializes packets to and from the format that ESN00 sends and understa
 # Unresearched packets
 
 - `SET_NUTRITION` (`0xc2`)
--  `?PING` (`0xc3`)
--  `???` (`0xd2`)
--  `?PONG` (`0xd4`)
--  `???` (`0xe1`)
--  `???` (`0xe2`)
--  `???` (`0xe3`)
+- `?PING` (`0xc3`)
+- `???` (`0xd2`)
+- `?PONG` (`0xd4`)
+- `???` (`0xe1`)
+- `???` (`0xe2`)
+- `???` (`0xe3`)
 
 ## Protocol
 
@@ -43,8 +43,6 @@ Device will be constantly spamming packet with this data
 | Unit   | `0x00`(g),`0x02`(ml),`0x04`(ml milk),`0x03`(floz),`0x05`(floz milk),`0x06`(oz),`0x01`(lboz) | Does not seem like bitmask just enum                            |
 | Stable | `0x00` (measuring) / `0x01` (settled)                                                       | `0x00` means weight is not yet settled                          |
 
-
-
 # Packet Details
 
 | Status | Type             | Source(s) | Payload                 | Generic?                       | Notes                                                                   |
@@ -58,14 +56,14 @@ Device will be constantly spamming packet with this data
 | ✅     | `ERROR_STATE`    | `NOTIFY`  | `isOn`                  | `booleanParselizer` (inverted) |                                                                         |
 | ✅     | `ITEM_STATE`     | `NOTIFY`  | `isOn`                  | `booleanParselizer` (inverted) |                                                                         |
 | ✅     | `UNIT_STATE`     | `NOTIFY`  | `unit`                  | `uint8Parselizer`              |                                                                         |
-| 🛑      | `SET_NUTRITION`  | `COMMAND` | (complex object)        |                                |                                                                         need more samples to understad how data is encoded |
+| 🛑     | `SET_NUTRITION`  | `COMMAND` | (complex object)        |                                | need more samples to understad how data is encoded                      |
 
 ## Legend
 
 | Marker    | Category  | Description                           |
 | --------- | --------- | ------------------------------------- |
 | ⌛        | Status    | Waiting (todo)                        |
-| 🛑         | Status    | Blocked                        |
+| 🛑        | Status    | Blocked                               |
 | ✅        | Status    | Done                                  |
 | `COMMAND` | Source(s) | Command send to the Device            |
 | `NOTIFY`  | Source(s) | Notification received from the Device |
