@@ -330,8 +330,8 @@
     which "^1.3.1"
 
 "@hertzg/bx@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@hertzg%2fbx/-/bx-1.0.0.tgz#e85f19cc7528aabf10eebb9e1d53d9df3200a48a"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@hertzg/bx/-/bx-1.1.1.tgz#e6293c0e70ed2675aa86b3b6c5fd37173a11bb77"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
