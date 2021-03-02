@@ -1,43 +1,34 @@
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhertzg%2Fetekcity%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/hertzg/etekcity/goto?ref=master)
-[![codecov](https://codecov.io/gh/hertzg/node-net-keepalive/branch/master/graph/badge.svg)](https://codecov.io/gh/hertzg/node-net-keepalive)
+# ETEKCITY ESN00 Packets
 
-# ETEKCITY Smart Nutrition Scale
+Parses & serializes packets to and from the format that ESN00 sends and understands.
 
-:warning: Very much work in progress :warning:
+# Implemented Packet Types:
 
-This is a potential project that tries to reverse engineer the BLE protocol that
-ETEKCITY Smart Nutrition Scale (ESN00) uses.
+- [x] `SET_UNIT` (`0xc0`) - c5736b4, - #2
+- [x] `SET_TARE` (`0xc1`) - #2
+- [x] `SET_AUTO_OFF` (`0xc4`) - 805a076, #2
+- [x] `MEASUREMENT` (`0xd0`) - bfcf5df
+- [x] `UNIT_STATE` (`0xd1`) - #5
+- [x] `TARE_STATE` (`0xd3`) - bfcf5df, #3
+- [x] `AUTO_OFF_STATE` (`0xd5`) - #2
+- [x] `ERROR_STATE` (`0xe0`) - bfcf5df, #3
+- [x] `ITEM_STATE` (`0xe4`) - bfcf5df, #3
 
-[ETEKCITY Smart Nutrition Scale (ESN00)](https://www.etekcity.com/product/100334) ([DE](https://www.amazon.de/gp/product/B07RJV9QPF) | [US](https://www.amazon.com/Etekcity-ESN00-Nutrition-Counting-Bluetooth/dp/B07FCZSC41))
+# Unresearched packets
 
-![](https://image.etekcity.com/thumb/201810/28/7f248c75a139b66b9d0e6b081c25a0a1.jpg)
-
-## BLE Protocol
-
-This section describes the protocol (what was researched so far)
-
-### Finding device
-
-Device address is random so the way to find it is based on the advertisement name (tested) or manufacturer data (not tested)
-Device reports weight and status on service `1801` and characteristic `2c12`.
+- `SET_NUTRITION` (`0xc2`)
+- `?PING` (`0xc3`)
+- `???` (`0xd2`)
+- `?PONG` (`0xd4`)
+- `???` (`0xe1`)
+- `???` (`0xe2`)
+- `???` (`0xe3`)
 
 ## Protocol
 
 All packets have this structure
 
 ![](https://kroki.io/packetdiag/svg/eNorSEzOTi1JyUxMV6jmUlAw0DW2UvBITUxJLbJWQAL6-grO-XnFJYl5JVYKBhVpqalpyQaJRkAdJlYKIZUFqQrRRfkliSWptkbmBrHWEB0BYLPB0kCFplYKPql56SUZaEqBCl0SSxKBkkA5oDotCDc6JzXP1jTWGtkJIAmwCmcPbwwLIY7MSE3OLi7N5arlAgALMjve)
-
-### Data Packets
-
-Data packet depends on the packet type values:
-
-| Name    | Value | Length  | When                                  | What                                                                                                                                                                                                          |
-| ------- | :---: | :-----: | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Error   | `E0`  | 1 byte  | Error mode is triggered or reset      | `0x00` (error reset) / `0x01` (error triggered)                                                                                                                                                               |
-| Tare    | `D3`  | 1 byte  | Tare is updated (set) or reset        | `0x00` (no tare) / `0x01` (tare mode)                                                                                                                                                                         |
-| Item    | `E4`  | 1 byte  | Item is put or removed from the scale | `0x00` (has item) / `0x01` (no item)                                                                                                                                                                          |
-| Weight  | `D0`  | 5 bytes | Weight is measuring or stabilized     | ![](https://kroki.io/packetdiag/svg/eNorSEzOTi1JyUxMV6jmUlDIy09Jjc9IzUzPKFGwVTAzsOYCCmopBGem5ylAQHROap6toY5CUX5JYkmqrZG5Qaw1SFxfH6wKrDwcYgBcuRFECTIAKoeoAmsIzcssKSZoPkgVxDkliUk5qQSdk1pSkpOawlXLxcUFAOOQPE8=) |
-| Unknown | `D2`  | 1 byte  | Characteristic listening started      | Unknown (maybe nutrition value states)                                                                                                                                                                        |
 
 #### Data Packet: Weight Measurement (0xE0)
 
@@ -52,10 +43,27 @@ Device will be constantly spamming packet with this data
 | Unit   | `0x00`(g),`0x02`(ml),`0x04`(ml milk),`0x03`(floz),`0x05`(floz milk),`0x06`(oz),`0x01`(lboz) | Does not seem like bitmask just enum                            |
 | Stable | `0x00` (measuring) / `0x01` (settled)                                                       | `0x00` means weight is not yet settled                          |
 
-## Hardware
+# Packet Details
 
-Nothing too interesting...
+| Status | Type             | Source(s) | Payload                 | Generic?                       | Notes                                                                   |
+| ------ | ---------------- | --------- | ----------------------- | ------------------------------ | ----------------------------------------------------------------------- |
+| ✅     | `SET_UNIT`       | `COMMAND` | `unit`                  | `uint8Parselizer`              |                                                                         |
+| ✅     | `SET_TARE`       | `COMMAND` | `shouldReset`           | `booleanParselizer`            |                                                                         |
+| ✅     | `SET_AUTO_OFF`   | `COMMAND` | `timeout`               | `uint8Parselizer`              |                                                                         |
+| ✅     | `MEASUREMENT`    | `NOTIFY`  | `sign`, `value`, `unit` | `uint8Parselizer`              |                                                                         |
+| ✅     | `TARE_STATE`     | `NOTIFY`  | `isOn`                  | `booleanParselizer` (inverted) |                                                                         |
+| ✅     | `AUTO_OFF_STATE` | `NOTIFY`  | `timeout`               | `uint16Parselizer`             | the value is the same as for command with the exception of extra 0 byte |
+| ✅     | `ERROR_STATE`    | `NOTIFY`  | `isOn`                  | `booleanParselizer` (inverted) |                                                                         |
+| ✅     | `ITEM_STATE`     | `NOTIFY`  | `isOn`                  | `booleanParselizer` (inverted) |                                                                         |
+| ✅     | `UNIT_STATE`     | `NOTIFY`  | `unit`                  | `uint8Parselizer`              |                                                                         |
+| 🛑     | `SET_NUTRITION`  | `COMMAND` | (complex object)        |                                | need more samples to understad how data is encoded                      |
 
-![](https://github.com/hertzg/etekcity/raw/master/research/hardware/esn00/photo_2020-09-04_01-17-35.jpg)
+## Legend
 
-![](https://github.com/hertzg/etekcity/raw/master/research/hardware/esn00/photo_2020-09-04_01-17-34.jpg)
+| Marker    | Category  | Description                           |
+| --------- | --------- | ------------------------------------- |
+| ⌛        | Status    | Waiting (todo)                        |
+| 🛑        | Status    | Blocked                               |
+| ✅        | Status    | Done                                  |
+| `COMMAND` | Source(s) | Command send to the Device            |
+| `NOTIFY`  | Source(s) | Notification received from the Device |

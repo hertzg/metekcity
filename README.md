@@ -1,94 +1,61 @@
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhertzg%2Fetekcity%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/hertzg/etekcity/goto?ref=master)
+[![codecov](https://codecov.io/gh/hertzg/node-net-keepalive/branch/master/graph/badge.svg)](https://codecov.io/gh/hertzg/node-net-keepalive)
 
+# ETEKCITY Smart Nutrition Scale
 
-# Metekcity
+:warning: Very much work in progress :warning:
 
-This project was generated using [Nx](https://nx.dev).
+This is a potential project that tries to reverse engineer the BLE protocol that
+ETEKCITY Smart Nutrition Scale (ESN00) uses.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+[ETEKCITY Smart Nutrition Scale (ESN00)](https://www.etekcity.com/product/100334) ([DE](https://www.amazon.de/gp/product/B07RJV9QPF) | [US](https://www.amazon.com/Etekcity-ESN00-Nutrition-Counting-Bluetooth/dp/B07FCZSC41))
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+![](https://image.etekcity.com/thumb/201810/28/7f248c75a139b66b9d0e6b081c25a0a1.jpg)
 
-## Adding capabilities to your workspace
+## BLE Protocol
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+This section describes the protocol (what was researched so far)
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+### Finding device
 
-Below are our core plugins:
+Device address is random so the way to find it is based on the advertisement name (tested) or manufacturer data (not tested)
+Device reports weight and status on service `1801` and characteristic `2c12`.
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+## Protocol
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
+All packets have this structure
 
-## Generate an application
+![](https://kroki.io/packetdiag/svg/eNorSEzOTi1JyUxMV6jmUlAw0DW2UvBITUxJLbJWQAL6-grO-XnFJYl5JVYKBhVpqalpyQaJRkAdJlYKIZUFqQrRRfkliSWptkbmBrHWEB0BYLPB0kCFplYKPql56SUZaEqBCl0SSxKBkkA5oDotCDc6JzXP1jTWGtkJIAmwCmcPbwwLIY7MSE3OLi7N5arlAgALMjve)
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+### Data Packets
 
-> You can use any of the plugins above to generate applications as well.
+Data packet depends on the packet type values:
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+| Name    | Value | Length  | When                                  | What                                                                                                                                                                                                          |
+| ------- | :---: | :-----: | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Error   | `E0`  | 1 byte  | Error mode is triggered or reset      | `0x00` (error reset) / `0x01` (error triggered)                                                                                                                                                               |
+| Tare    | `D3`  | 1 byte  | Tare is updated (set) or reset        | `0x00` (no tare) / `0x01` (tare mode)                                                                                                                                                                         |
+| Item    | `E4`  | 1 byte  | Item is put or removed from the scale | `0x00` (has item) / `0x01` (no item)                                                                                                                                                                          |
+| Weight  | `D0`  | 5 bytes | Weight is measuring or stabilized     | ![](https://kroki.io/packetdiag/svg/eNorSEzOTi1JyUxMV6jmUlDIy09Jjc9IzUzPKFGwVTAzsOYCCmopBGem5ylAQHROap6toY5CUX5JYkmqrZG5Qaw1SFxfH6wKrDwcYgBcuRFECTIAKoeoAmsIzcssKSZoPkgVxDkliUk5qQSdk1pSkpOawlXLxcUFAOOQPE8=) |
+| Unknown | `D2`  | 1 byte  | Characteristic listening started      | Unknown (maybe nutrition value states)                                                                                                                                                                        |
 
-## Generate a library
+#### Data Packet: Weight Measurement (0xE0)
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Device will be constantly spamming packet with this data
 
-> You can also use any of the plugins above to generate libraries as well.
+![](https://kroki.io/packetdiag/svg/eNorSEzOTi1JyUxMV6jmUlDIy09Jjc9IzUzPKFGwVTAzsOYCCmopBGem5ylAQHROap6toY5CUX5JYkmqrZG5Qaw1SFxfH6wKrDwcYgBcuRFECTIAKoeoAmsIzcssKSZoPkgVxDkliUk5qQSdk1pSkpOawlXLxcUFAOOQPE8=)
 
-Libraries are shareable across libraries and applications. They can be imported from `@metekcity/mylib`.
+| Field  | Description                                                                                 | Note                                                            |
+| ------ | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Sign   | `0x00` (positive) / `0x01` (negative)                                                       |                                                                 |
+| Weight | 16 bit int (big-endian)                                                                     | In grams value is multiplied by 10 (not sure about other units) |
+| Unit   | `0x00`(g),`0x02`(ml),`0x04`(ml milk),`0x03`(floz),`0x05`(floz milk),`0x06`(oz),`0x01`(lboz) | Does not seem like bitmask just enum                            |
+| Stable | `0x00` (measuring) / `0x01` (settled)                                                       | `0x00` means weight is not yet settled                          |
 
-## Development server
+## Hardware
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Nothing too interesting...
 
-## Code scaffolding
+![](https://github.com/hertzg/etekcity/raw/master/research/hardware/esn00/photo_2020-09-04_01-17-35.jpg)
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+![](https://github.com/hertzg/etekcity/raw/master/research/hardware/esn00/photo_2020-09-04_01-17-34.jpg)
