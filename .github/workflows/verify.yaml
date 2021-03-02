@@ -23,7 +23,7 @@ jobs:
 
       - uses: bahmutov/npm-install@v1
 
-      - uses: mansagroup/nrwl-nx-action@v2
+      - uses: MansaGroup/nrwl-nx-action@v2.1.0
         with:
           targets: lint,test,build
           parallel: true
