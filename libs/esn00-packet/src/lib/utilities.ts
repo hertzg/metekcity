@@ -18,7 +18,7 @@ const bufferReadSign = (buffer: Buffer, offset?: number): number =>
 const bufferWriteSign = (
   buffer: Buffer,
   value: number,
-  offset: number = 0
+  offset?: number
 ): number => buffer.writeUInt8(Math.sign(value) < 0 ? 1 : 0, offset);
 
 export const bufferReadSignedNumber = (buffer: Buffer, offset = 0): number =>
