@@ -1,9 +1,40 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
+  "projects": {
+    "esn00-packet": {
+      "root": "libs/esn00-packet",
+      "sourceRoot": "libs/esn00-packet/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/esn00-packet/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/esn00-packet"],
+          "options": {
+            "jestConfig": "libs/esn00-packet/jest.config.js"
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "externalDependencies": "none",
+            "srcRootForCompilationRoot": "libs/esn00-packet",
+            "outputPath": "dist/libs/esn00-packet",
+            "tsConfig": "libs/esn00-packet/tsconfig.lib.json",
+            "packageJson": "libs/esn00-packet/package.json",
+            "main": "libs/esn00-packet/src/index.ts",
+            "assets": ["libs/esn00-packet/*.md", "libs/esn00-packet/LICENSE"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }

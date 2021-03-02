@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -27,16 +26,23 @@
     "help": "nx help"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@hertzg/bx": "1.1.1"
+  },
   "devDependencies": {
-     
-    "@nrwl/tao": "11.4.0",
+    "@tsconfig/node14": "^1.0.0",
     "@nrwl/cli": "11.4.0",
+    "@nrwl/jest": "11.4.0",
+    "@nrwl/node": "^11.4.0",
+    "@nrwl/tao": "11.4.0",
     "@nrwl/workspace": "11.4.0",
+    "@types/jest": "26.0.8",
     "@types/node": "12.12.38",
     "dotenv": "6.2.0",
+    "jest": "26.2.2",
+    "prettier": "2.2.1",
+    "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",
-    "typescript": "~4.0.3",
-    "prettier": "2.2.1"
+    "typescript": "~4.0.3"
   }
 }
