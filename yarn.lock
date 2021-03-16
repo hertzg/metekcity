@@ -4179,8 +4179,8 @@ locate-path@^5.0.0:
     p-locate "^4.1.0"
 
 lock-treatment-tool@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/lock-treatment-tool/-/lock-treatment-tool-0.4.1.tgz#cb164ced311f3dff23863df476053904b287238b"
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/lock-treatment-tool/-/lock-treatment-tool-0.4.2.tgz#a4e4c0dfecd78f43697c9f360549ef6f87705d3b"
   dependencies:
     line-reader "^0.3.0"
     yargs "^14.2.0"
