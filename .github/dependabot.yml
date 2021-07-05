@@ -13,6 +13,9 @@ updates:
     labels:
       - 'dependencies'
     open-pull-requests-limit: 10
+    allow:
+      - dependency-name: "*"
+        dependency-type: "direct"
     reviewers:
       - hertzg
     versioning-strategy: increase-if-necessary
