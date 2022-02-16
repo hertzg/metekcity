@@ -14,7 +14,7 @@
       "tempTag": true
     },
     "version": {
-      "allowBranch": "main",
+      "allowBranch": "master",
       "conventionalCommits": true,
       "exact": true,
       "message": "chore(release): %s [skip ci]"
