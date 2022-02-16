@@ -4,7 +4,7 @@ import {
   MeasurementUnit,
 } from '../../measurement';
 import { bx } from '@hertzg/bx';
-import JSON_SAMPLES from './samples.json';
+import JSON_SAMPLES from './samples';
 
 const SAMPLES: Array<
   [name: string, hex: string, expected: never]
