@@ -11,9 +11,8 @@
   "author": "George Hertz <georgedot@gmail.com>",
   "license": "MIT",
   "files": [
-    "dist/**/*",
-    "src/**/*",
-    "!**/__tests__/*"
+    "dist",
+    "!/dist/**/__tests__/"
   ],
   "scripts": {
     "prepare": "yarn build",
