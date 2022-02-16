@@ -25,6 +25,7 @@
     "node": ">= 16"
   },
   "devDependencies": {
+    "@hertzg/bx": "^1.1.1",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.25",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
