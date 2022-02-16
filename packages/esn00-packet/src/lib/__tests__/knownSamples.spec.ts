@@ -1,6 +1,7 @@
 import { parse, serialize } from '../parselize';
 import SAMPLES from './knownSamples';
 import { bx } from '@hertzg/bx';
+import { arrayBufferToHexString } from '../utilities';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const groups = SAMPLES as any;
@@ -44,7 +45,7 @@ describe('Known sample checks', () => {
 
           expect(pkt).toStrictEqual({
             ...parsed,
-            header: parsed.header.toString('hex'),
+            header: arrayBufferToHexString(parsed.header),
           });
           expect(serialized).toStrictEqual(buffer);
         });

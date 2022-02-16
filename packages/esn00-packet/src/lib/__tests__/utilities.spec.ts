@@ -2,15 +2,35 @@ import {
   arrayBufferReadBoolean,
   arrayBufferReadNumber,
   arrayBufferReadSignedNumber,
+  arrayBufferToHexString,
   arrayBufferWriteBoolean,
   arrayBufferWriteNumber,
   arrayBufferWriteSignedNumber,
   uint8,
   uint8Sum,
 } from '../utilities';
-import { bx } from '@hertzg/bx';
+import { bx, bxx } from '@hertzg/bx';
 
 describe('Utilities', () => {
+  describe('arrayBufferToHexString', () => {
+    it('should behave exactly like Buffer.toString("hex")', () => {
+      const assertSimilarity = (hex: string) => {
+        expect(arrayBufferToHexString(bx(hex))).toStrictEqual(
+          bxx(hex).toString('hex')
+        );
+      };
+
+      assertSimilarity('');
+      assertSimilarity('00');
+      assertSimilarity('11');
+      assertSimilarity('fefe');
+      assertSimilarity('faaf');
+      assertSimilarity('fabbaf');
+      assertSimilarity('00fa0001');
+      assertSimilarity('ffffffffffffffffffffffffffff');
+    });
+  });
+
   describe('uint8', () => {
     it('should limit the value to 8 bits', () => {
       expect(uint8(-0)).toStrictEqual(0);
@@ -85,7 +105,9 @@ describe('Utilities', () => {
         offset?: number
       ) => {
         const buffer = new ArrayBuffer(2 + (offset || 0));
-        arrayBufferWriteNumber(buffer, value, offset);
+        expect(arrayBufferWriteNumber(buffer, value, offset)).toStrictEqual(
+          Math.abs(value)
+        );
         expect(buffer).toStrictEqual(expected);
       };
 
@@ -140,7 +162,9 @@ describe('Utilities', () => {
         offset?: number
       ) => {
         const buffer = new ArrayBuffer(3 + (offset || 0));
-        arrayBufferWriteSignedNumber(buffer, value, offset);
+        expect(
+          arrayBufferWriteSignedNumber(buffer, value, offset)
+        ).toStrictEqual(value);
         expect(buffer).toStrictEqual(expected);
       };
 

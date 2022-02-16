@@ -6,14 +6,14 @@ import { MeasurementParselizer } from './measurement';
 import { IPayloadParselizer, PayloadType } from './index';
 
 export interface IParselizerParser {
-  parse(type: PacketType, payload: Buffer): PayloadType | null;
+  parse(type: PacketType, payload: ArrayBufferLike): PayloadType | null;
 }
 
 export interface IParselizerSerializer {
   serialize(
     type: PacketType,
     payload: Exclude<PayloadType, null>
-  ): Buffer | null;
+  ): ArrayBufferLike | null;
 }
 
 export interface IParselizer extends IParselizerParser, IParselizerSerializer {}
@@ -48,7 +48,7 @@ export default class PayloadParselizer implements IParselizer {
     }
   };
 
-  parse = (type: PacketType, payload: Buffer): PayloadType | null => {
+  parse = (type: PacketType, payload: ArrayBufferLike): PayloadType | null => {
     const parselizer = this._getCodec(type);
     if (!parselizer) {
       return null;
@@ -60,7 +60,7 @@ export default class PayloadParselizer implements IParselizer {
   serialize = (
     type: PacketType,
     payload: Exclude<PayloadType, null>
-  ): Buffer | null => {
+  ): ArrayBufferLike | null => {
     const parselizer = this._getCodec(type);
     if (!parselizer) {
       return null;

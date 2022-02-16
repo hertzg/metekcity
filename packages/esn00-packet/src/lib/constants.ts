@@ -1,1 +1,3 @@
-export const HEADER = Object.seal(Buffer.from([0xfe, 0xef, 0xc0, 0xa2]));
+export const HEADER = Object.seal(
+  new Uint8Array([0xfe, 0xef, 0xc0, 0xa2]).buffer
+);

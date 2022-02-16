@@ -52,7 +52,9 @@ describe('Parselizer', () => {
 
     const setupSerialize = () => {
       const mockedParselizerSerialize = jest.fn();
-      const boundSerialize = (pkt: ISerializablePacket<Buffer | PayloadType>) =>
+      const boundSerialize = (
+        pkt: ISerializablePacket<ArrayBufferLike | PayloadType>
+      ) =>
         serialize(pkt, {
           serialize: mockedParselizerSerialize,
         });

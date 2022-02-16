@@ -9,10 +9,10 @@ import PayloadParselizer from './payloads/payloadParselizer';
 
 const globalParselizer = new PayloadParselizer();
 
-type ParseResult = PayloadType | Buffer;
+type ParseResult = PayloadType | ArrayBufferLike;
 
 export const parse = (
-  buffer: Buffer,
+  buffer: ArrayBufferLike,
   parselizer: IParselizerParser = globalParselizer
 ): IPacket<ParseResult> => {
   const pkt = parsePacket(buffer);
@@ -29,10 +29,13 @@ export const parse = (
 };
 
 export const serialize = (
-  pkt: ISerializablePacket<Buffer | PayloadType>,
+  pkt: ISerializablePacket<ArrayBufferLike | PayloadType>,
   parselizer: IParselizerSerializer = globalParselizer
-): Buffer | null => {
-  if (pkt.payload instanceof Buffer) {
+): ArrayBufferLike | null => {
+  if (
+    pkt.payload instanceof ArrayBuffer ||
+    pkt.payload instanceof SharedArrayBuffer
+  ) {
     return serializePacket(pkt as ISerializablePacket);
   }
 

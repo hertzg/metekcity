@@ -10,7 +10,7 @@ describe('Sample packet checks', () => {
     expect(pkt.checksum).toEqual(0xee);
     expect(pkt.length).toEqual(4);
     expect(pkt.payload).toBeTruthy();
-    expect(pkt.payload).toHaveLength(pkt.length);
+    expect(pkt.payload.byteLength).toBe(pkt.length);
     expect(pkt.payload).toEqual(bx('00010203'));
   });
 });

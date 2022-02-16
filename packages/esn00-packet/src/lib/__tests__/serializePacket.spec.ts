@@ -1,5 +1,7 @@
-import { bx } from '@hertzg/bx';
+import { bx, bxx } from '@hertzg/bx';
 import { serializePacket } from '../serializePacket';
+import { arrayBufferToHexString } from '../utilities';
+import { ISerializablePacket } from '../index';
 
 const SAMPLES: Array<[[number, string], string]> = [
   [[0xd0, '01064a0001'], 'feefc0a2_d0_05_01064a0001_27'],
@@ -15,24 +17,33 @@ const SAMPLES: Array<[[number, string], string]> = [
 ];
 
 describe('serializePacket', () => {
+  const assertSerialize = <T extends ISerializablePacket>(
+    pkt: T,
+    hex: string
+  ) => {
+    expect(arrayBufferToHexString(serializePacket(pkt))).toStrictEqual(hex);
+  };
+
   it('should use passed values if present', () => {
-    expect(
-      serializePacket({
+    assertSerialize(
+      {
         header: bx('deda'),
         type: 0xde,
         length: 0xad,
-        payload: Buffer.from([0xbe, 0xaf]),
+        payload: new Uint8Array([0xbe, 0xaf]),
         checksum: 0xb0,
-      })
-    ).toStrictEqual(bx('dedadeadbeafb0'));
+      },
+      'dedadeadbeafb0'
+    );
   });
 
-  it.each(SAMPLES)('%j -> %s', ([type, data], expected) => {
-    expect(
-      serializePacket({
+  it.each(SAMPLES)('%s -> %s', ([type, data], expected) => {
+    assertSerialize(
+      {
         type,
         payload: bx(data),
-      })
-    ).toStrictEqual(bx(expected));
+      },
+      bxx(expected).toString('hex')
+    );
   });
 });

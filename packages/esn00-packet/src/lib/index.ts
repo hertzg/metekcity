@@ -1,16 +1,19 @@
 import { PayloadType } from './payloads';
 
-export interface ISerializablePacket<T extends PayloadType | Buffer = Buffer> {
-  header?: Buffer;
+export interface ISerializablePacket<
+  T extends PayloadType | ArrayBufferLike = ArrayBufferLike
+> {
+  header?: ArrayBufferLike;
   type: number;
   length?: number;
   payload: T;
   checksum?: number;
 }
 
-export interface IPacket<T extends PayloadType | Buffer = Buffer>
-  extends ISerializablePacket<T> {
-  header: Buffer;
+export interface IPacket<
+  T extends PayloadType | ArrayBufferLike = ArrayBufferLike
+> extends ISerializablePacket<T> {
+  header: ArrayBufferLike;
   length: number;
   checksum: number;
 }
