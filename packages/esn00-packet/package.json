@@ -22,7 +22,7 @@
     "test": "jest src/"
   },
   "engines": {
-    "node": "> 4"
+    "node": ">= 16"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
