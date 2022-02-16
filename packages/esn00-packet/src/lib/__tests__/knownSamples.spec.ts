@@ -1,5 +1,5 @@
 import { parse, serialize } from '../parselize';
-import SAMPLES from './knownSamples.json';
+import SAMPLES from './knownSamples';
 import { bx } from '@hertzg/bx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

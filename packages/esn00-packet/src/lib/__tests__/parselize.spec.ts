@@ -65,11 +65,8 @@ describe('Parselizer', () => {
     };
 
     it('should serialize unknown packets with buffer payloads', () => {
-      const [
-        boundSerialize,
-        mockedParselizerSerialize,
-        mockedSerializePacket,
-      ] = setupSerialize();
+      const [boundSerialize, mockedParselizerSerialize, mockedSerializePacket] =
+        setupSerialize();
 
       const packet = {
         type: 0xff,
@@ -85,11 +82,8 @@ describe('Parselizer', () => {
     });
 
     it('should throw when trying to serialize unknown packets with non buffer payload', () => {
-      const [
-        boundSerialize,
-        mockedParselizerSerialize,
-        mockedSerializePacket,
-      ] = setupSerialize();
+      const [boundSerialize, mockedParselizerSerialize, mockedSerializePacket] =
+        setupSerialize();
 
       const packet = {
         type: 0xff,

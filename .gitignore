@@ -3,3 +3,12 @@ node_modules/
 .vagrant/
 coverage/
 dist/
+
+# Yarn berry without Zero-Installs
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

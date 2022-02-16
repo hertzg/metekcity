@@ -4,16 +4,25 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
-    "publish": {
-      "message": "chore(release): publish [skip ci]",
-      "registry": "https://registry.npmjs.org"
+    "create": {
+      "homepage": "https://github.com/hertzg/metekcity",
+      "license": "MIT"
     },
-    "bootstrap": {
-      "npmClientArgs": [
-        "--frozen-lockfile",
-        "--check-files",
-        "--prefer-offline"
-      ]
+    "publish": {
+      "message": "chore(release): %s [skip ci]",
+      "registry": "https://registry.npmjs.org",
+      "tempTag": true
+    },
+    "version": {
+      "allowBranch": "main",
+      "conventionalCommits": true,
+      "exact": true,
+      "message": "chore(release): %s [skip ci]"
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/__fixtures__/**",
+    "**/__tests__/**",
+    "**/*.md"
+  ]
 }
