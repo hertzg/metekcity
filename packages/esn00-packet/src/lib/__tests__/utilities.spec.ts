@@ -1,10 +1,10 @@
 import {
-  bufferReadBoolean,
-  bufferReadNumber,
-  bufferReadSignedNumber,
-  bufferWriteBoolean,
-  bufferWriteNumber,
-  bufferWriteSignedNumber,
+  arrayBufferReadBoolean,
+  arrayBufferReadNumber,
+  arrayBufferReadSignedNumber,
+  arrayBufferWriteBoolean,
+  arrayBufferWriteNumber,
+  arrayBufferWriteSignedNumber,
   uint8,
   uint8Sum,
 } from '../utilities';
@@ -41,23 +41,23 @@ describe('Utilities', () => {
 
   describe('buffer(Read|Write)Boolean', () => {
     it('should treat any non zero value as true', () => {
-      expect(bufferReadBoolean(bx('00'))).toBe(false);
-      expect(bufferReadBoolean(bx('0001'))).toBe(false);
-      expect(bufferReadBoolean(bx('0001'), 1)).toBe(true);
-      expect(bufferReadBoolean(bx('01'))).toBe(true);
-      expect(bufferReadBoolean(bx('05'))).toBe(true);
-      expect(bufferReadBoolean(bx('00ff'), 1)).toBe(true);
-      expect(bufferReadBoolean(bx('00ff00'), 1)).toBe(true);
+      expect(arrayBufferReadBoolean(bx('00'))).toBe(false);
+      expect(arrayBufferReadBoolean(bx('0001'))).toBe(false);
+      expect(arrayBufferReadBoolean(bx('0001'), 1)).toBe(true);
+      expect(arrayBufferReadBoolean(bx('01'))).toBe(true);
+      expect(arrayBufferReadBoolean(bx('05'))).toBe(true);
+      expect(arrayBufferReadBoolean(bx('00ff'), 1)).toBe(true);
+      expect(arrayBufferReadBoolean(bx('00ff00'), 1)).toBe(true);
     });
 
     it('should always write boolean as 00 or 01', () => {
       const assertWrite = (
         value: boolean,
-        expected: Buffer,
+        expected: ArrayBufferLike,
         offset?: number
       ) => {
-        const buffer = Buffer.alloc(1 + (offset || 0));
-        bufferWriteBoolean(buffer, value, offset);
+        const buffer = new ArrayBuffer(1 + (offset || 0));
+        arrayBufferWriteBoolean(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
       };
 
@@ -70,22 +70,22 @@ describe('Utilities', () => {
 
   describe('buffer(Read|Write)Number', () => {
     it('should treat bytes as 16 bit big-endian unsigned integer', () => {
-      expect(bufferReadNumber(bx('0000'))).toBe(0);
-      expect(bufferReadNumber(bx('0001'))).toBe(1);
-      expect(bufferReadNumber(bx('000001'), 1)).toBe(1);
-      expect(bufferReadNumber(bx('00ff'))).toBe(255);
-      expect(bufferReadNumber(bx('ff00'))).toBe(65280);
-      expect(bufferReadNumber(bx('00ff00'), 1)).toBe(65280);
+      expect(arrayBufferReadNumber(bx('0000'))).toBe(0);
+      expect(arrayBufferReadNumber(bx('0001'))).toBe(1);
+      expect(arrayBufferReadNumber(bx('000001'), 1)).toBe(1);
+      expect(arrayBufferReadNumber(bx('00ff'))).toBe(255);
+      expect(arrayBufferReadNumber(bx('ff00'))).toBe(65280);
+      expect(arrayBufferReadNumber(bx('00ff00'), 1)).toBe(65280);
     });
 
     it('should always write number as 16 bit big-endian unsigned integer', () => {
       const assertWrite = (
         value: number,
-        expected: Buffer,
+        expected: ArrayBufferLike,
         offset?: number
       ) => {
-        const buffer = Buffer.alloc(2 + (offset || 0));
-        bufferWriteNumber(buffer, value, offset);
+        const buffer = new ArrayBuffer(2 + (offset || 0));
+        arrayBufferWriteNumber(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
       };
 
@@ -111,36 +111,36 @@ describe('Utilities', () => {
 
   describe('buffer(Read|Write)SignedNumber', () => {
     it('should treat bytes as boolean (positive or negative) followed by 16 bit big-endian unsigned integers', () => {
-      expect(bufferReadSignedNumber(bx('000000'))).toBe(0);
-      expect(bufferReadSignedNumber(bx('000001'))).toBe(1);
-      expect(bufferReadSignedNumber(bx('00000001'), 1)).toBe(1);
-      expect(bufferReadSignedNumber(bx('0000ff'))).toBe(255);
-      expect(bufferReadSignedNumber(bx('00ff00'))).toBe(65280);
-      expect(bufferReadSignedNumber(bx('0000ff00'), 1)).toBe(65280);
+      expect(arrayBufferReadSignedNumber(bx('000000'))).toBe(0);
+      expect(arrayBufferReadSignedNumber(bx('000001'))).toBe(1);
+      expect(arrayBufferReadSignedNumber(bx('00000001'), 1)).toBe(1);
+      expect(arrayBufferReadSignedNumber(bx('0000ff'))).toBe(255);
+      expect(arrayBufferReadSignedNumber(bx('00ff00'))).toBe(65280);
+      expect(arrayBufferReadSignedNumber(bx('0000ff00'), 1)).toBe(65280);
 
-      expect(bufferReadSignedNumber(bx('010000'))).toBe(-0);
-      expect(bufferReadSignedNumber(bx('010001'))).toBe(-1);
-      expect(bufferReadSignedNumber(bx('00010001'), 1)).toBe(-1);
-      expect(bufferReadSignedNumber(bx('0100ff'))).toBe(-255);
-      expect(bufferReadSignedNumber(bx('01ff00'))).toBe(-65280);
-      expect(bufferReadSignedNumber(bx('0001ff00'), 1)).toBe(-65280);
+      expect(arrayBufferReadSignedNumber(bx('010000'))).toBe(-0);
+      expect(arrayBufferReadSignedNumber(bx('010001'))).toBe(-1);
+      expect(arrayBufferReadSignedNumber(bx('00010001'), 1)).toBe(-1);
+      expect(arrayBufferReadSignedNumber(bx('0100ff'))).toBe(-255);
+      expect(arrayBufferReadSignedNumber(bx('01ff00'))).toBe(-65280);
+      expect(arrayBufferReadSignedNumber(bx('0001ff00'), 1)).toBe(-65280);
 
-      expect(bufferReadSignedNumber(bx('020000'))).toBe(-0);
-      expect(bufferReadSignedNumber(bx('090001'))).toBe(-1);
-      expect(bufferReadSignedNumber(bx('00fa0001'), 1)).toBe(-1);
-      expect(bufferReadSignedNumber(bx('f000ff'))).toBe(-255);
-      expect(bufferReadSignedNumber(bx('eeff00'))).toBe(-65280);
-      expect(bufferReadSignedNumber(bx('0002ff00'), 1)).toBe(-65280);
+      expect(arrayBufferReadSignedNumber(bx('020000'))).toBe(-0);
+      expect(arrayBufferReadSignedNumber(bx('090001'))).toBe(-1);
+      expect(arrayBufferReadSignedNumber(bx('00fa0001'), 1)).toBe(-1);
+      expect(arrayBufferReadSignedNumber(bx('f000ff'))).toBe(-255);
+      expect(arrayBufferReadSignedNumber(bx('eeff00'))).toBe(-65280);
+      expect(arrayBufferReadSignedNumber(bx('0002ff00'), 1)).toBe(-65280);
     });
 
     it('should always write number as boolean (positive or negative) + 16 bit big-endian unsigned integer', () => {
       const assertWrite = (
         value: number,
-        expected: Buffer,
+        expected: ArrayBufferLike,
         offset?: number
       ) => {
-        const buffer = Buffer.alloc(3 + (offset || 0));
-        bufferWriteSignedNumber(buffer, value, offset);
+        const buffer = new ArrayBuffer(3 + (offset || 0));
+        arrayBufferWriteSignedNumber(buffer, value, offset);
         expect(buffer).toStrictEqual(expected);
       };
 

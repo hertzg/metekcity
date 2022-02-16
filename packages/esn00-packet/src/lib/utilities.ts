@@ -3,41 +3,66 @@ export const uint8 = (value: number): number => value & 0xff;
 export const uint8Sum = (a: number, b: number): number =>
   uint8(uint8(a) + uint8(b));
 
-export const bufferReadNumber = (buffer: Buffer, offset = 0): number =>
-  Number(buffer.readUInt16BE(offset));
+export const asDataView = (buffer: ArrayBufferLike | DataView): DataView =>
+  ArrayBuffer.isView(buffer) ? buffer : new DataView(buffer);
 
-export const bufferWriteNumber = (
-  buffer: Buffer,
-  value: number,
+export const arrayBufferReadNumber = (
+  buffer: ArrayBufferLike | DataView,
   offset = 0
-): number => buffer.writeUInt16BE(Math.abs(value), offset);
+): number => Number(asDataView(buffer).getUint16(offset, false));
 
-const bufferReadSign = (buffer: Buffer, offset?: number): number =>
-  bufferReadBoolean(buffer, offset) ? -1 : 1;
-
-const bufferWriteSign = (
-  buffer: Buffer,
-  value: number,
-  offset?: number
-): number => buffer.writeUInt8(Math.sign(value) < 0 ? 1 : 0, offset);
-
-export const bufferReadSignedNumber = (buffer: Buffer, offset = 0): number =>
-  bufferReadSign(buffer, offset) * bufferReadNumber(buffer, offset + 1);
-
-export const bufferWriteSignedNumber = (
-  buffer: Buffer,
+export const arrayBufferWriteNumber = (
+  buffer: ArrayBufferLike | DataView,
   value: number,
   offset = 0
 ): number => {
-  bufferWriteSign(buffer, value, offset);
-  return bufferWriteNumber(buffer, value, offset + 1);
+  const numberValue = Math.abs(value);
+  asDataView(buffer).setUint16(offset, numberValue, false);
+  return numberValue;
 };
 
-export const bufferReadBoolean = (buffer: Buffer, offset = 0): boolean =>
-  Boolean(buffer.readUInt8(offset));
+const arrayBufferReadSign = (
+  buffer: ArrayBufferLike | DataView,
+  offset?: number
+): number => (arrayBufferReadBoolean(buffer, offset) ? -1 : 1);
 
-export const bufferWriteBoolean = (
-  buffer: Buffer,
+const arrayBufferWriteSign = (
+  buffer: ArrayBufferLike | DataView,
+  value: number,
+  offset = 0
+): number => {
+  const numberValue = Math.sign(value) < 0 ? 1 : 0;
+  asDataView(buffer).setUint8(offset, numberValue);
+  return numberValue;
+};
+
+export const arrayBufferReadSignedNumber = (
+  buffer: ArrayBufferLike | DataView,
+  offset = 0
+): number =>
+  arrayBufferReadSign(buffer, offset) *
+  arrayBufferReadNumber(buffer, offset + 1);
+
+export const arrayBufferWriteSignedNumber = (
+  buffer: ArrayBufferLike | DataView,
+  value: number,
+  offset = 0
+): number => {
+  arrayBufferWriteSign(buffer, value, offset);
+  return arrayBufferWriteNumber(buffer, value, offset + 1);
+};
+
+export const arrayBufferReadBoolean = (
+  buffer: ArrayBufferLike | DataView,
+  offset = 0
+): boolean => Boolean(asDataView(buffer).getUint8(offset));
+
+export const arrayBufferWriteBoolean = (
+  buffer: ArrayBufferLike | DataView,
   value: boolean,
   offset = 0
-): number => buffer.writeUInt8(Number(value), offset);
+): number => {
+  const numberValue = Number(value);
+  asDataView(buffer).setUint8(offset, numberValue);
+  return numberValue;
+};
