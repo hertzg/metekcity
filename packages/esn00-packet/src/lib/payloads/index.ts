@@ -3,9 +3,9 @@ import { IMeasurement } from './measurement';
 export type PayloadType = Exclude<number | boolean | IMeasurement, null>;
 
 export interface IPayloadParselizer {
-  parse(buffer: Buffer): PayloadType | null;
+  parse(buffer: ArrayBufferLike): PayloadType | null;
 
-  serialize(payload: Exclude<PayloadType, null>): Buffer | null;
+  serialize(payload: Exclude<PayloadType, null>): ArrayBufferLike | null;
 }
 
 export * from './payloadParselizer';

@@ -1,4 +1,4 @@
-import { bufferReadBoolean, bufferWriteBoolean } from '../utilities';
+import { arrayBufferReadBoolean, arrayBufferWriteBoolean } from '../utilities';
 import { IPayloadParselizer } from './index';
 
 export class BooleanParselizer implements IPayloadParselizer {
@@ -7,15 +7,15 @@ export class BooleanParselizer implements IPayloadParselizer {
     private readonly offset: number = 0
   ) {}
 
-  parse = (buffer: Buffer): boolean => {
-    const value = bufferReadBoolean(buffer);
+  parse = (buffer: ArrayBufferLike): boolean => {
+    const value = arrayBufferReadBoolean(buffer);
     return this.invert ? !value : value;
   };
 
-  serialize = (payload: boolean): Buffer => {
-    const buffer: Buffer = Buffer.alloc(1);
+  serialize = (payload: boolean): ArrayBufferLike => {
+    const buffer = new ArrayBuffer(1);
     const value = this.invert ? !payload : payload;
-    bufferWriteBoolean(buffer, value, this.offset);
+    arrayBufferWriteBoolean(buffer, value, this.offset);
     return buffer;
   };
 }

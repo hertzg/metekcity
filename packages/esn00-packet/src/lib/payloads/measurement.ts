@@ -1,8 +1,9 @@
 import {
-  bufferReadBoolean,
-  bufferReadSignedNumber,
-  bufferWriteBoolean,
-  bufferWriteSignedNumber,
+  arrayBufferReadBoolean,
+  arrayBufferReadSignedNumber,
+  arrayBufferWriteBoolean,
+  arrayBufferWriteSignedNumber,
+  asDataView,
 } from '../utilities';
 import { IPayloadParselizer } from './index';
 
@@ -23,17 +24,20 @@ export interface IMeasurement {
 }
 
 export class MeasurementParselizer implements IPayloadParselizer {
-  parse = (buffer: Buffer): IMeasurement => ({
-    value: bufferReadSignedNumber(buffer, 0),
-    unit: buffer.readUInt8(3),
-    settled: bufferReadBoolean(buffer, 4),
-  });
+  parse = (buffer: ArrayBufferLike): IMeasurement => {
+    const dataView = asDataView(buffer);
+    return {
+      value: arrayBufferReadSignedNumber(dataView, 0),
+      unit: dataView.getUint8(3),
+      settled: arrayBufferReadBoolean(dataView, 4),
+    };
+  };
 
-  serialize = (payload: IMeasurement): Buffer => {
-    const buffer = Buffer.alloc(5);
-    bufferWriteSignedNumber(buffer, payload.value, 0);
-    buffer.writeUInt8(payload.unit, 3);
-    bufferWriteBoolean(buffer, payload.settled, 4);
-    return buffer;
+  serialize = (payload: IMeasurement): ArrayBuffer => {
+    const buffer = new Uint8Array(5);
+    arrayBufferWriteSignedNumber(buffer.buffer, payload.value, 0);
+    buffer[3] = payload.unit;
+    arrayBufferWriteBoolean(buffer, payload.settled, 4);
+    return buffer.buffer;
   };
 }

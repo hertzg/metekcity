@@ -1,10 +1,10 @@
 import { bx } from '@hertzg/bx';
 import { BooleanParselizer } from '../genericBoolean';
 
-const parse = (payload: Buffer, invert?: boolean): boolean =>
+const parse = (payload: ArrayBufferLike, invert?: boolean): boolean =>
   new BooleanParselizer(invert).parse(payload);
 
-const serialize = (payload: boolean, invert?: boolean): Buffer =>
+const serialize = (payload: boolean, invert?: boolean): ArrayBufferLike =>
   new BooleanParselizer(invert).serialize(payload);
 
 describe('boolean payloads', () => {

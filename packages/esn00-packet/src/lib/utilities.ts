@@ -4,7 +4,12 @@ export const uint8Sum = (a: number, b: number): number =>
   uint8(uint8(a) + uint8(b));
 
 export const asDataView = (buffer: ArrayBufferLike | DataView): DataView =>
-  ArrayBuffer.isView(buffer) ? buffer : new DataView(buffer);
+  new DataView(ArrayBuffer.isView(buffer) ? buffer.buffer : buffer);
+
+export const arrayBufferToHexString = (buffer: ArrayBufferLike) =>
+  Array.from(new Uint8Array(buffer))
+    .map((n) => n.toString(16).padStart(2, '0'))
+    .join('');
 
 export const arrayBufferReadNumber = (
   buffer: ArrayBufferLike | DataView,
@@ -31,9 +36,9 @@ const arrayBufferWriteSign = (
   value: number,
   offset = 0
 ): number => {
-  const numberValue = Math.sign(value) < 0 ? 1 : 0;
-  asDataView(buffer).setUint8(offset, numberValue);
-  return numberValue;
+  const sign = Math.sign(value);
+  asDataView(buffer).setUint8(offset, sign < 0 ? 1 : 0);
+  return sign;
 };
 
 export const arrayBufferReadSignedNumber = (
@@ -47,10 +52,9 @@ export const arrayBufferWriteSignedNumber = (
   buffer: ArrayBufferLike | DataView,
   value: number,
   offset = 0
-): number => {
-  arrayBufferWriteSign(buffer, value, offset);
-  return arrayBufferWriteNumber(buffer, value, offset + 1);
-};
+): number =>
+  arrayBufferWriteSign(buffer, value, offset) *
+  arrayBufferWriteNumber(buffer, value, offset + 1);
 
 export const arrayBufferReadBoolean = (
   buffer: ArrayBufferLike | DataView,

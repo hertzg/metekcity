@@ -11,10 +11,10 @@ const SAMPLES: Array<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 > = JSON_SAMPLES as any;
 
-const parse = (payload: Buffer): IMeasurement =>
+const parse = (payload: ArrayBufferLike): IMeasurement =>
   new MeasurementParselizer().parse(payload);
 
-const serialize = (payload: IMeasurement): Buffer =>
+const serialize = (payload: IMeasurement): ArrayBufferLike =>
   new MeasurementParselizer().serialize(payload);
 
 describe('Weight', () => {
