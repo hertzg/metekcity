@@ -1,3 +1,1 @@
-import { bx } from '@hertzg/bx';
-
-export const HEADER = Object.seal(bx('feefc0a2'));
+export const HEADER = Object.seal(Buffer.from([0xfe, 0xef, 0xc0, 0xa2]));

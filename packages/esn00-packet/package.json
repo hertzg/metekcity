@@ -38,8 +38,5 @@
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   },
-  "gitHead": "068789977eba80190531873dc290ea324a477f27",
-  "dependencies": {
-    "@hertzg/bx": "^1.1.1"
-  }
+  "gitHead": "068789977eba80190531873dc290ea324a477f27"
 }
