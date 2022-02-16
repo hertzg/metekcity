@@ -12,3 +12,7 @@ dist/
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+
+# Parcel stuff
+.parcel-cache

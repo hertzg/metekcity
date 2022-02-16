@@ -1,0 +1,28 @@
+{
+  "name": "esn00-demo",
+  "version": "2.0.0",
+  "private": true,
+  "description": "> TODO: description",
+  "author": "George Hertz <georgedot@gmail.com>",
+  "homepage": "https://github.com/hertzg/metekcity/tree/main/packages/esn00-demo#readme",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hertzg/metekcity.git"
+  },
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "bugs": {
+    "url": "https://github.com/hertzg/metekcity/issues"
+  },
+  "devDependencies": {
+    "parcel": "^2.3.1"
+  }
+}

@@ -9,6 +9,7 @@
     "prettier": "^2.5.1"
   },
   "scripts": {
+    "demo": "yarn lerna exec --scope esn00-demo yarn start",
     "release": "lerna version",
     "postversion": "lerna publish from-git"
   },
