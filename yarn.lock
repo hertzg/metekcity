@@ -440,10 +440,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hertzg/bx@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@hertzg/bx@npm:1.1.1"
-  checksum: 8666208e3a7002a1f07834d174544e3a3a73c904a0ff4abd1e7309777ec8be243fce794af66284f6bec11becd617a2f91ebe02736f4d711fa4f1d06d048bd31d
+"@hertzg/bx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@hertzg/bx@npm:2.0.0"
+  checksum: a640388c5dc2a5d7b5f08df0e329eedc127dbe623005e992b0f812f69476bae1119a3bc9dbde716b1b68c7db692db5737592bb3e2d3940c09333c7118022563d
   languageName: node
   linkType: hard
 
@@ -1510,7 +1510,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@metekcity/esn00-packet@workspace:packages/esn00-packet"
   dependencies:
-    "@hertzg/bx": ^1.1.1
+    "@hertzg/bx": ^2.0.0
     "@types/jest": ^27.4.0
     "@types/node": ^16.11.25
     "@typescript-eslint/eslint-plugin": ^5.12.0
