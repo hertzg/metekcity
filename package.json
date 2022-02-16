@@ -8,6 +8,10 @@
     "lerna": "^4.0.0",
     "prettier": "^2.5.1"
   },
+  "scripts": {
+    "release": "lerna version",
+    "postversion": "lerna publish from-git"
+  },
   "workspaces": [
     "packages/*"
   ]
