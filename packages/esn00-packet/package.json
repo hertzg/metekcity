@@ -5,8 +5,8 @@
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "repository": "git@github.com:hertzg/etekcity.git",
   "author": "George Hertz <georgedot@gmail.com>",
   "license": "MIT",
