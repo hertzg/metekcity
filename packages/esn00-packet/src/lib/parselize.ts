@@ -34,12 +34,13 @@ export const serialize = (
 ): ArrayBufferLike | null => {
   if (
     pkt.payload instanceof ArrayBuffer ||
-    pkt.payload instanceof SharedArrayBuffer
+    (window.SharedArrayBuffer &&
+      pkt.payload instanceof window.SharedArrayBuffer)
   ) {
     return serializePacket(pkt as ISerializablePacket);
   }
 
-  const payload = parselizer.serialize(pkt.type, pkt.payload);
+  const payload = parselizer.serialize(pkt.type, pkt.payload as PayloadType);
 
   if (payload == null) {
     throw new TypeError(
