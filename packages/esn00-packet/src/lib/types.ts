@@ -1,4 +1,4 @@
-export const enum PacketType {
+export enum PacketType {
   SET_UNIT = 0xc0, // 192
   SET_TARE = 0xc1, // 193
   SET_NUTRITION = 0xc2, // 194

@@ -7,7 +7,7 @@ import {
 } from '../utilities';
 import { IPayloadParselizer } from './index';
 
-export const enum MeasurementUnit {
+export enum MeasurementUnit {
   GRAM = 0x00,
   POUND_OUNCE = 0x01,
   MILLILITER_WATER = 0x02,
