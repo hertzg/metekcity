@@ -1,12 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-  <meta charset="utf-8" />
-  <title>My First Parcel App</title>
-</head>
-<body>
-<h1>Hello, World!</h1>
-<button id="run">Run</button>
-<script type="module" src="main.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>My First Parcel App</title>
+    <style>
+      .controls {
+        text-align: center;
+      }
+
+      .controls > div {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+    <div class="controls">
+      <div>
+        <button id="run">Connect</button>
+      </div>
+      <div>
+        <select id="unit" name="unit" disabled="disabled"></select>
+        <button id="set-unit" type="button" disabled="disabled">
+          SET_UNIT
+        </button>
+      </div>
+      <div>
+        <button id="set-tare-true" type="button" disabled="disabled">
+          TARE_CLEAR
+        </button>
+        <button id="set-tare-false" type="button" disabled="disabled">
+          TARE_SET
+        </button>
+      </div>
+      <div>
+        <textarea id="write-payload" rows="5" cols="80" disabled="disabled">null</textarea>
+        <div>
+          <select id="write-type" name="type" disabled="disabled"></select>
+          <label
+            ><input id="write-raw" type="checkbox" disabled="disabled" />
+            HEX?</label
+          >
+          <button id="write" disabled="disabled">WRITE</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="main.ts"></script>
+  </body>
 </html>
