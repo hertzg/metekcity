@@ -3,6 +3,7 @@
   "packageManager": "yarn@3.1.1",
   "private": true,
   "devDependencies": {
+    "@types/web-bluetooth": "^0.0.12",
     "eslint": "^8.9.0",
     "eslint-plugin-node": "^11.1.0",
     "lerna": "^4.0.0",

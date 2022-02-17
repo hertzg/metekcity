@@ -2654,6 +2654,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/web-bluetooth@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@types/web-bluetooth@npm:0.0.12"
+  checksum: 456063627d000a77ed13a337142d00bcdd3f17ed9cc41139dbf8d646089ce7d761338ddace7a175db268d8d4d5747050486fe6b8e82d405f71d9bb37c1883baa
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 20.2.1
   resolution: "@types/yargs-parser@npm:20.2.1"
@@ -4656,6 +4663,7 @@ __metadata:
   resolution: "esn00-demo@workspace:packages/esn00-demo"
   dependencies:
     parcel: ^2.3.1
+    typescript: ^4.5.5
   languageName: unknown
   linkType: soft
 
@@ -4723,6 +4731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "etekcity@workspace:."
   dependencies:
+    "@types/web-bluetooth": ^0.0.12
     eslint: ^8.9.0
     eslint-plugin-node: ^11.1.0
     lerna: ^4.0.0
