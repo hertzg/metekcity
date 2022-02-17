@@ -23,3 +23,5 @@ export * from './parsePacket';
 export * from './payloads';
 export * from './serializePacket';
 export { IParselizer } from './payloads/payloadParselizer';
+export * from './utilities';
+export * from './types';
