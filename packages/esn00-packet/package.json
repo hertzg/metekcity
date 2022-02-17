@@ -12,7 +12,8 @@
   "license": "MIT",
   "files": [
     "dist",
-    "!/dist/**/__tests__/"
+    "src",
+    "!/**/__tests__/"
   ],
   "scripts": {
     "prepare": "yarn build",
