@@ -6,6 +6,7 @@ Parses & serializes packets to and from the format that ESN00 sends and understa
 
 - [x] `SET_UNIT` (`0xc0`) - c5736b4, - #2
 - [x] `SET_TARE` (`0xc1`) - #2
+- [x] `SET_NUTRITION` (`0xc2`) - verified on hardware (ESN00, May 2026)
 - [x] `SET_AUTO_OFF` (`0xc4`) - 805a076, #2
 - [x] `MEASUREMENT` (`0xd0`) - bfcf5df
 - [x] `UNIT_STATE` (`0xd1`) - #5
@@ -16,7 +17,6 @@ Parses & serializes packets to and from the format that ESN00 sends and understa
 
 # Unresearched packets
 
-- `SET_NUTRITION` (`0xc2`)
 - `?PING` (`0xc3`)
 - `???` (`0xd2`)
 - `?PONG` (`0xd4`)
@@ -75,7 +75,7 @@ Device will be constantly spamming packet with this data
 | ✅     | `ERROR_STATE`    | `NOTIFY`  | `isOn`                    | `booleanParselizer` (inverted) |                                                                                                                     |
 | ✅     | `ITEM_STATE`     | `NOTIFY`  | `isOn`                    | `booleanParselizer` (inverted) |                                                                                                                     |
 | ✅     | `UNIT_STATE`     | `NOTIFY`  | `unit`                    | `uint8Parselizer`              |                                                                                                                     |
-| ⌛     | `SET_NUTRITION`  | `COMMAND` | `12` x `3` byte `integer` |                                | the value is displayed by simple `n/10` division with single fractional point. [more info](# ETEKCITY ESN00 Packets |
+| ✅     | `SET_NUTRITION`  | `COMMAND` | `12` x `3` byte `integer` |                                | Per-100g macros × 10 (one decimal place), big-endian uint24. Scale's LCD multiplies by measured weight to display live per-serving macros. Verified on hardware (ESN00, May 2026).                                               |
 
 Parses & serializes packets to and from the format that ESN00 sends and understands.
 
@@ -83,7 +83,7 @@ Parses & serializes packets to and from the format that ESN00 sends and understa
 
 - [x] `SET_UNIT` (`0xc0`) - c5736b4, - #2
 - [x] `SET_TARE` (`0xc1`) - #2
-- [ ] `SET_NUTRITION` (`0xc2`) - pending
+- [x] `SET_NUTRITION` (`0xc2`) - verified on hardware (ESN00, May 2026)
 - [x] `SET_AUTO_OFF` (`0xc4`) - 805a076, #2
 - [x] `MEASUREMENT` (`0xd0`) - bfcf5df
 - [x] `UNIT_STATE` (`0xd1`) - #5
